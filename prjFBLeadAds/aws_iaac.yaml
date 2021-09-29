@@ -1,0 +1,140 @@
+#Copyright (c) Facebook, Inc. and its affiliates.
+#
+#This source code is licensed under the MIT license found in the
+#LICENSE file in the root directory of this source tree.
+
+# ---
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Stack C# Back-End for FB Lead Ads Webhook - M. Franca http://www.linkedin.com/in/mafranca
+# Ref.: https://github.com/aws-samples/sessions-with-aws-sam/blob/master/http-api/template.yaml
+# ---
+# CLI (examples)
+# setx SAM_CLI_TELEMETRY 0
+# sam validate --template-file aws_iaac.yaml
+# sam build --template-file aws_iaac.yaml
+# (or) dotnet lambda package --output-package .aws-sam\build\MyAWSomeLambda\prjFBLeadAds.zip
+# which includes the publish command (dotnet publish -c Release --output \bin\Release\netcoreapp3.1\publish --framework "netcoreapp3.1" /p:GenerateRuntimeConfigurationFiles=true --runtime linux-x64 --self-contained false)
+#
+# sam deploy --guided --template-file aws_iaac.yaml
+# aws cloudformation delete-stack --stack-name fra-fbleadads-back-stk --region sa-east-1
+# sam logs -n MyAWSomeLambda --stack-name fra-fbleadads-back-stk --tail --region sa-east-1
+# sam logs -n MyAWSomeLambda --stack-name fra-fbleadads-back-stk --tail --region sa-east-1 --debug
+
+#----------
+Parameters:  
+  pProjectName:
+    Type: String
+    Description: Name of the CSharp project/microservice/lambda.      
+
+#-------
+Globals:
+  Function:
+    Timeout: 60
+    Handler: !Sub '${pProjectName}::${pProjectName}.LambdaEntryPoint::FunctionHandlerAsync'
+    Runtime: dotnetcore3.1
+    MemorySize: 512 #MB
+
+#---------
+Resources:
+#-----------
+#API Gateway
+#-----------
+  #For exposing our APIs
+  #https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-httpapi.html
+  AWSomeHttpApi:
+    Type: 'AWS::Serverless::HttpApi'
+    Properties:      
+      CorsConfiguration: #https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-cors.html
+        AllowMethods:
+          - GET
+          - PUT
+          - OPTIONS #"'OPTIONS,GET,POST,PUT,DELETE'"
+        AllowHeaders: 
+          - Content-Type
+          - X-Amz-Date
+          - Authorization
+          - X-Api-Key
+        AllowOrigins:
+          - "*" #http://localhost:8080 or "'wwww.example.com'"
+
+#------
+#Lambda
+#------ 
+  #IAM Role - que será assumida pela Lambda quando de sua execução...
+  #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
+  AWSomeLambdaRole: 
+    Type: 'AWS::IAM::Role'
+    Properties: 
+      AssumeRolePolicyDocument: 
+        Version: "2012-10-17"
+        Statement: 
+          - 
+            Effect: "Allow"
+            Principal: 
+              Service: 
+                - "lambda.amazonaws.com"
+            Action: 
+              - "sts:AssumeRole"
+      Description: "Lambda execution role created via SAM for FB Lead Ads."
+      ManagedPolicyArns: 
+        - "arn:aws:iam::aws:policy/AWSLambda_FullAccess" # the old one was depracated (https://docs.aws.amazon.com/lambda/latest/dg/security_iam_troubleshoot.html#security_iam_troubleshoot-admin-deprecation)
+        - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+        - "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+      Path: "/"
+  
+  #Lambda itself
+  #https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html
+  MyAWSomeLambda:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      PackageType: 'Zip'
+      #change this (below) later...
+      CodeUri: 'C:\Git\prjFBLeadAds\.aws-sam\build\MyAWSomeLambda\prjFBLeadAds.zip'
+      #CodeUri: ''      
+      Description: 'ASP.NET Core Web API Lambda as back-end for FB Lead Ads.'
+      Environment:
+        Variables: 
+          someVariable: 'someInfo'          
+      VersionDescription: 'v1.0.0'
+      Role: !GetAtt AWSomeLambdaRole.Arn       
+      Events:
+        # ---------------------------------------- Public APIs --------------------------------
+        # Please notice that we should protect APIs in a production environment...
+        # You will need to confirm this for each of the four entries below during the deploy...
+        MyGetTestsEvent: 
+          Type: HttpApi
+          Properties:
+            PayloadFormatVersion: '2.0'
+            Path: /api/tests
+            Method: GET
+            ApiId: !Ref AWSomeHttpApi
+        MyGetTestsVersionEvent: 
+          Type: HttpApi
+          Properties:
+            PayloadFormatVersion: '2.0'
+            Path: /api/tests/version
+            Method: GET
+            ApiId: !Ref AWSomeHttpApi
+        MyGetWebhooksEvent: 
+          Type: HttpApi
+          Properties:
+            PayloadFormatVersion: '2.0'
+            Path: /api/webhooks
+            Method: GET
+            ApiId: !Ref AWSomeHttpApi
+        MyPostWebhooksEvent: 
+          Type: HttpApi
+          Properties:
+            PayloadFormatVersion: '2.0'
+            Path: /api/webhooks
+            Method: POST
+            ApiId: !Ref AWSomeHttpApi        
+#---
+Outputs:
+  LambdaExecutionRole:
+    Description: "IAM Role ARN for executing the Lambda"
+    Value: !GetAtt AWSomeLambdaRole.Arn
+  ApiEndpoint:
+    Description: "HTTP API endpoint URL"
+    Value: !Sub "https://${AWSomeHttpApi}.execute-api.${AWS::Region}.amazonaws.com/api"

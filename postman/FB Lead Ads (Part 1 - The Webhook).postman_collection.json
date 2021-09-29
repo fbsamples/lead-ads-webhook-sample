@@ -1,0 +1,502 @@
+{
+	"info": {
+		"_postman_id": "847723c5-8b97-4d1c-af74-11baf0c292de",
+		"name": "FB Lead Ads (Part 1 - The Webhook)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "0 - GET tests webservice na AWS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{aws api subdomain}}.amazonaws.com/api/tests?test=test",
+					"protocol": "https",
+					"host": [
+						"{{aws api subdomain}}",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"api",
+						"tests"
+					],
+					"query": [
+						{
+							"key": "test",
+							"value": "test"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0 - GET webservice version at AWS with  Route 53 + ACM",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{custom api domain}}/api/tests/version",
+					"protocol": "https",
+					"host": [
+						"{{custom api domain}}"
+					],
+					"path": [
+						"api",
+						"tests",
+						"version"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0 - Business Manager Info- Admin SYSTEM USER ACCESS_TOKEN",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{system user access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{business id}}",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{business id}}"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{user access token}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0 - List System Users- Admin SYSTEM USER ACCESS_TOKEN",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{system user access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{business id}}/system_users",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{business id}}",
+						"system_users"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{user access token}}",
+							"disabled": true
+						},
+						{
+							"key": "business_app",
+							"value": "{{app id}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0 - Confirming the Application Record on FB",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{app id}}",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{app id}}"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{app access token}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1 - GET (TESTING) Webhooks with Querystring",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{custom api domain}}/api/webhooks?hub.mode=subscribe&hub.challenge=1158201444&hub.verify_token=leadAdsRockPlayer",
+					"protocol": "https",
+					"host": [
+						"{{custom api domain}}"
+					],
+					"path": [
+						"api",
+						"webhooks"
+					],
+					"query": [
+						{
+							"key": "hub.mode",
+							"value": "subscribe"
+						},
+						{
+							"key": "hub.challenge",
+							"value": "1158201444"
+						},
+						{
+							"key": "hub.verify_token",
+							"value": "leadAdsRockPlayer"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1 - POST WEBHOOK for Page subscription (header token)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{app access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "object",
+							"value": "page",
+							"description": "Indicates the object type that this subscription applies to.",
+							"type": "text"
+						},
+						{
+							"key": "callback_url",
+							"value": "https://api.francas.team/api/webhooks",
+							"description": "The URL that will receive the POST request when an update is triggered, and a GET request when attempting this publish operation.",
+							"type": "text"
+						},
+						{
+							"key": "fields",
+							"value": "leadgen",
+							"description": "The set of fields in this object that are subscribed to.",
+							"type": "text"
+						},
+						{
+							"key": "include_values",
+							"value": "",
+							"description": "Indicates if change notifications should include the new values.",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "verify_token",
+							"value": "leadAdsRockPlayer",
+							"description": "An arbitrary string that can be used to confirm to your server that the request is valid.",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{app id}}/subscriptions",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{app id}}",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1 - LIST subscriptions of an App (header token)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{app access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{app id}}/subscriptions",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{app id}}",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2 - List of FB Pages - SYSTEM USER ACCESS_TOKEN",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{system user access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{system user id}}/accounts",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{system user id}}",
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{user access token}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2 - LIST Page subscriptions (header token)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{page access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{page id}}/subscribed_apps",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{page id}}",
+						"subscribed_apps"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2 - Create a Page Subscription /App (header token)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{page access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{page id}}/subscribed_apps?subscribed_fields=leadgen",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{page id}}",
+						"subscribed_apps"
+					],
+					"query": [
+						{
+							"key": "subscribed_fields",
+							"value": "leadgen"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3 - TEST Lead Generation Notification",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"object\":\"page\",\r\n    \"entry\":[\r\n        {\r\n            \"id\":\"138124712925158\",\r\n            \"time\":1630087927,\r\n            \"changes\":[\r\n                {\r\n                \"value\":{\r\n                    \"form_id\":\"172036835026334\",\r\n                    \"leadgen_id\":\"233370042045345\",\r\n                    \"created_time\":1630087926,\r\n                    \"page_id\":\"138124712925158\"\r\n                },\r\n                \"field\":\"leadgen\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}  ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{custom api domain}}/api/webhooks",
+					"protocol": "https",
+					"host": [
+						"{{custom api domain}}"
+					],
+					"path": [
+						"api",
+						"webhooks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4 - RETRIEVE the generated LEAD by leadgen ID (USER EXPIRING TOKEN)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{leadgen id}}",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{leadgen id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4 - RETRIEVE the generated LEAD by leadgen ID (NON EXPIRING TOKEN)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{system user access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{leadgen id}}",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{leadgen id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
