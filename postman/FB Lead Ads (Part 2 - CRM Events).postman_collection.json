@@ -1,0 +1,201 @@
+{
+	"info": {
+		"_postman_id": "f26b9d24-9440-4633-835f-62853b923949",
+		"name": "FB Lead Ads (Part 2 - CRM Events)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1) [CRM CAPI] Initial Lead from FB",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{capi access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"initial_lead\",\r\n            \"event_time\": {{unix date}},\r\n            \"action_source\": \"system_generated\",\r\n            \"user_data\": {\r\n                \"lead_id\": {{leadgen id}}\r\n            },\r\n            \"custom_data\": {\r\n                \"event_source\": \"crm\",\r\n                \"lead_event_source\": \"{{crm system}}\"\r\n            }\r\n        }\r\n    ]    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{pixel id}}/events",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{pixel id}}",
+						"events"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{capi access token}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2) [CRM CAPI] Marketing Qualified Lead",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{capi access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"qualified_lead\",\r\n            \"event_time\": {{unix date}},\r\n            \"action_source\": \"system_generated\",\r\n            \"user_data\": {\r\n                \"lead_id\": {{leadgen id}}\r\n            },\r\n            \"custom_data\": {\r\n                \"event_source\": \"crm\",\r\n                \"lead_event_source\": \"{{crm system}}\"\r\n            }\r\n        }\r\n    ]    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{pixel id}}/events",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{pixel id}}",
+						"events"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{capi access token}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3) [CRM CAPI] Sales Opportunity",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{capi access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"sales_opportunity\",\r\n            \"event_time\": {{unix date}},\r\n            \"action_source\": \"system_generated\",\r\n            \"user_data\": {\r\n                \"lead_id\": {{leadgen id}}\r\n            },\r\n            \"custom_data\": {\r\n                \"event_source\": \"crm\",\r\n                \"lead_event_source\": \"{{crm system}}\"\r\n            }\r\n        }\r\n    ]    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{pixel id}}/events",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{pixel id}}",
+						"events"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{capi access token}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4) [CRM CAPI] Converted",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{capi access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"converted\",\r\n            \"event_time\": {{unix date}},\r\n            \"action_source\": \"system_generated\",\r\n            \"user_data\": {\r\n                \"lead_id\": {{leadgen id}}\r\n            },\r\n            \"custom_data\": {\r\n                \"event_source\": \"crm\",\r\n                \"lead_event_source\": \"{{crm system}}\"\r\n            }\r\n        }\r\n    ]    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{pixel id}}/events",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{pixel id}}",
+						"events"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{capi access token}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
