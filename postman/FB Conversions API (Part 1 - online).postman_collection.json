@@ -1,0 +1,809 @@
+{
+	"info": {
+		"_postman_id": "92c383f4-9694-495d-ab20-6b26421774a3",
+		"name": "FB Conversions API (Part 1 - online)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "0) Check System User ID - per APP, via access token",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{system user access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/me?fields=id",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"me"
+					],
+					"query": [
+						{
+							"key": "fields",
+							"value": "id"
+						}
+					]
+				},
+				"description": "GET STARTED: [https://developers.facebook.com/docs/marketing-api/conversions-api/get-started/](https://developers.facebook.com/docs/marketing-api/conversions-api/get-started/)\n\nBusiness Manager, More Business Settings, System Users\n\nor\n\n[https://developers.facebook.com/tools/explorer/](https://developers.facebook.com/tools/explorer/)  \nGet Access Token"
+			},
+			"response": []
+		},
+		{
+			"name": "0) Reading a System User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{system user access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{system user id}}",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{system user id}}"
+					]
+				},
+				"description": "GET STARTED: [https://developers.facebook.com/docs/marketing-api/conversions-api/get-started/](https://developers.facebook.com/docs/marketing-api/conversions-api/get-started/)\n\nThis endpoint doesn't have any parameters.\n\n[https://developers.facebook.com/docs/marketing-api/reference/system-user/#example](https://developers.facebook.com/docs/marketing-api/reference/system-user/#example)"
+			},
+			"response": []
+		},
+		{
+			"name": "1) Posting a ViewContent standard TEST event",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{system user access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"ViewContent\",\r\n            \"event_time\": {{unix date}},\r\n            \"event_id\": \"{{event id}}\",\r\n            \"user_data\": {\r\n                \"client_ip_address\": \"{{user ip}}\",\r\n                \"client_user_agent\": \"{{user browser}}\"\r\n            },\r\n            \"action_source\": \"website\",\r\n            \"event_source_url\": \"{{product landing page}}\"\r\n        }\r\n    ],\r\n    \"test_event_code\": \"{{server event test code}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{pixel id}}/events",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{pixel id}}",
+						"events"
+					]
+				},
+				"description": "Website events shared using the Conversions API require the following data parameters: [`client_user_agent`](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/customer-information-parameters#client-user-agent), [`action_source`](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/server-event#action-source), and [`event_source_url`](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/server-event#event-source-url), while non-web events **require only** [`action_source`](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/server-event#action-source). These parameters contribute to improving the quality of events used for ad delivery and may improve campaign performance.\n\n**Standard Events**: [https://www.facebook.com/business/help/402791146561655?id=1205376682832142](https://www.facebook.com/business/help/402791146561655?id=1205376682832142)\n\n**Main Body Parameters**:\n\n[https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/main-body](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/main-body)"
+			},
+			"response": [
+				{
+					"name": "[400] Bad Request - lacking double quotes on the parameters",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"ViewContent\",\r\n            \"event_time\": {{unix date}},\r\n            \"event_id\": \"{{event id}}\",\r\n            \"user_data\": {\r\n                \"client_ip_address\": {{user ip}},\r\n                \"client_user_agent\": {{user browser}}                \r\n            },\r\n            \"event_source_url\": {{product landing page}},\r\n            \"action_source\": \"website\"\r\n        }\r\n    ],\r\n    \"test_event_code\": \"{{server event test code}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{pixel id}}/events",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{pixel id}}",
+								"events"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "cross-origin"
+						},
+						{
+							"key": "x-app-usage",
+							"value": "{\"call_count\":0,\"total_cputime\":0,\"total_time\":0}"
+						},
+						{
+							"key": "x-fb-rlafr",
+							"value": "0"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "WWW-Authenticate",
+							"value": "OAuth \"Facebook Platform\" \"invalid_request\" \"(#100) The parameter data is required\""
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v12.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-store"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "A3XXe-KppjWush6SDqE_QzA"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "B7PR8LJMeY5"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1004981734"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "3gI4g4CY0LxcOio2OT5JbIfy55YExWInvI51GP8Sc0h+lC5HYEKx6O18/9pjuSP+RYcEY4qO8hhUH0RvMaKvqA=="
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 26 Jan 2022 19:20:28 GMT"
+						},
+						{
+							"key": "Priority",
+							"value": "u=3,i"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=3600, h3-29=\":443\"; ma=3600"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "Content-Length",
+							"value": "135"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": {\n        \"message\": \"(#100) The parameter data is required\",\n        \"type\": \"OAuthException\",\n        \"code\": 100,\n        \"fbtrace_id\": \"A3XXe-KppjWush6SDqE_QzA\"\n    }\n}"
+				},
+				{
+					"name": "[200] Ok - one event received; send it twice to see the deduplication",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"ViewContent\",\r\n            \"event_time\": {{unix date}},\r\n            \"event_id\": \"{{event id}}\",\r\n            \"user_data\": {\r\n                \"client_ip_address\": \"{{user ip}}\",\r\n                \"client_user_agent\": \"{{user browser}}\"                \r\n            },\r\n            \"event_source_url\": \"{product landing page}}\",\r\n            \"action_source\": \"website\"\r\n        }\r\n    ],\r\n    \"test_event_code\": \"{{server event test code}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{pixel id}}/events",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{pixel id}}",
+								"events"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "x-ad-account-usage",
+							"value": "{\"acc_id_util_pct\":0}"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "cross-origin"
+						},
+						{
+							"key": "x-app-usage",
+							"value": "{\"call_count\":0,\"total_cputime\":0,\"total_time\":0}"
+						},
+						{
+							"key": "x-fb-rlafr",
+							"value": "0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v12.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "private, no-cache, no-store, must-revalidate"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "AY0VqpRwt9C1p9k-Mx1-zlC"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "CpHPoe8tr5p"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1004981734"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "3JaEFiE+U3E/PF8gj5si20OCwGhc1Hu3D15QyMPqJtkZgv1TkaCfVMP2Pns6iMjFDDLU1v96cCCE6ZV+SsAODA=="
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 26 Jan 2022 19:28:06 GMT"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=3600, h3-29=\":443\"; ma=3600"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "Content-Length",
+							"value": "74"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"events_received\": 1,\n    \"messages\": [],\n    \"fbtrace_id\": \"AY0VqpRwt9C1p9k-Mx1-zlC\"\n}"
+				}
+			]
+		},
+		{
+			"name": "2) Posting a Purchase event",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{system user access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"Purchase\",\r\n            \"event_time\": {{unix date}},\r\n            \"event_id\": \"{{event id}}\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ],\r\n                \"client_ip_address\": \"{{user ip}}\",\r\n                \"client_user_agent\": \"{{user browser}}\",\r\n\r\n                \"fbc\": null,\r\n                \"fbp\": null\r\n            },\r\n\r\n            \"contents\": [\r\n            {\r\n                \"id\": \"product123\",\r\n                \"quantity\": 1,\r\n                \"delivery_category\": \"home_delivery\"\r\n            }\r\n            ],\r\n\r\n            \"custom_data\": {\r\n                \"currency\": \"USD\",\r\n                \"value\": \"142.52\"\r\n            },\r\n\r\n            \"action_source\": \"website\",\r\n            \"event_source_url\": \"{{thank you page}}\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{pixel id}}/events",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{pixel id}}",
+						"events"
+					]
+				},
+				"description": "Purchase event requires the 'value' field. If not present, it fails.\n\nRef.: [https://developers.facebook.com/docs/marketing-api/conversions-api/using-the-api](https://developers.facebook.com/docs/marketing-api/conversions-api/using-the-api)"
+			},
+			"response": [
+				{
+					"name": "[400] Bad Request - missing \"custom_data\" and \"value\"",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"Purchase\",\r\n            \"event_time\": {{unix date}},\r\n            \"event_id\": \"{{event id}}\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ],\r\n                \"client_ip_address\": \"{{user ip}}\",\r\n                \"client_user_agent\": \"{{user browser}}\",\r\n\r\n                \"fbc\": null,\r\n                \"fbp\": null\r\n            },\r\n\r\n            \"contents\": [\r\n            {\r\n                \"id\": \"product123\",\r\n                \"quantity\": 1,\r\n                \"delivery_category\": \"home_delivery\"\r\n            }\r\n            ],\r\n\r\n\r\n\r\n            \"action_source\": \"website\",\r\n            \"event_source_url\": \"{{thank you page}}\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{pixel id}}/events",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{pixel id}}",
+								"events"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "x-ad-account-usage",
+							"value": "{\"acc_id_util_pct\":0}"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "cross-origin"
+						},
+						{
+							"key": "x-app-usage",
+							"value": "{\"call_count\":0,\"total_cputime\":0,\"total_time\":0}"
+						},
+						{
+							"key": "x-fb-rlafr",
+							"value": "0"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "WWW-Authenticate",
+							"value": "OAuth \"Facebook Platform\" \"invalid_request\" \"Invalid parameter\""
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v12.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-store"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "ANCqLpsh4cOq-H2GwHbyIBq"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "Be8fYyMVZrZ"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1004986715"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "KuLJHqwR+a5Ks2aMvC9jVh4lsKx9DZ46vz/RV5a7wFZjEkiVAWc7VIhrnykEaEogkm9r107RzvSaEbKMKjSTEw=="
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 27 Jan 2022 14:24:43 GMT"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=3600, h3-29=\":443\"; ma=3600"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "230"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": {\n        \"message\": \"Invalid parameter\",\n        \"type\": \"OAuthException\",\n        \"code\": 100,\n        \"error_subcode\": 2804010,\n        \"is_transient\": false,\n        \"error_user_title\": \"Missing Currency for Purchase Event\",\n        \"error_user_msg\": \"Your purchase event doesn’t include a currency parameter. Enter a currency parameter. For example: USD\",\n        \"fbtrace_id\": \"ANCqLpsh4cOq-H2GwHbyIBq\"\n    }\n}"
+				},
+				{
+					"name": "[200] Ok - one event received.",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"Purchase\",\r\n            \"event_time\": {{unix date}},\r\n            \"event_id\": \"{{event id}}\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ],\r\n                \"client_ip_address\": \"{{user ip}}\",\r\n                \"client_user_agent\": \"{{user browser}}\",\r\n\r\n                \"fbc\": null,\r\n                \"fbp\": null\r\n            },\r\n\r\n            \"contents\": [\r\n            {\r\n                \"id\": \"product123\",\r\n                \"quantity\": 1,\r\n                \"delivery_category\": \"home_delivery\"\r\n            }\r\n            ],\r\n\r\n            \"custom_data\": {\r\n                \"currency\": \"USD\",\r\n                \"value\": \"142.52\"\r\n            },\r\n\r\n            \"action_source\": \"website\",\r\n            \"event_source_url\": \"{{thank you page}}\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{pixel id}}/events",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{pixel id}}",
+								"events"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "x-ad-account-usage",
+							"value": "{\"acc_id_util_pct\":0}"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "cross-origin"
+						},
+						{
+							"key": "x-app-usage",
+							"value": "{\"call_count\":0,\"total_cputime\":0,\"total_time\":0}"
+						},
+						{
+							"key": "x-fb-rlafr",
+							"value": "0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v12.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "private, no-cache, no-store, must-revalidate"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "AStPQXEWiuxj5_9WI0u4a77"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "DPuDd2wPzI9"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1004986715"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "RxSpxsW+2ngGAjtTv9akrrjX1VZSg09hGSszyjZX0FMhtOOtYA7gOu1uIgjf24qjffrWCE1Oqmh00zae8tR7ZA=="
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 27 Jan 2022 14:23:47 GMT"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=3600, h3-29=\":443\"; ma=3600"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "74"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"events_received\": 1,\n    \"messages\": [],\n    \"fbtrace_id\": \"AStPQXEWiuxj5_9WI0u4a77\"\n}"
+				}
+			]
+		},
+		{
+			"name": "2) Posting a Lead event",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{system user access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"Lead\",\r\n            \"event_time\": {{unix date}},\r\n            \"event_id\": \"{{event id}}\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"country\": \"885036a0da3dff3c3e05bc79bf49382b12bc5098514ed57ce0875aba1aa2c40d\",\r\n                \"external_id\": \"629f4cf9337b0d0c76f305d860f98894cfa8c279516b425747514ca8710deb97\",\r\n\r\n                \"client_ip_address\": \"{{user ip}}\",\r\n                \"client_user_agent\": \"{{user browser}}\",\r\n\r\n                \"fbp\": null\r\n            },\r\n\r\n            \"custom_data\": {\r\n                \"currency\": \"USD\",\r\n                \"value\": \"142.52\",\r\n                \"content_name\": \"sampleValue\",\r\n                \"content_category\": \"sampleValue2\"\r\n            },\r\n\r\n            \"action_source\": \"email\",\r\n            \"event_source_url\": \"{{thank you page}}\",\r\n            \"opt_out\": true\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{pixel id}}/events",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{pixel id}}",
+						"events"
+					]
+				},
+				"description": "| **Lead** | A submission of information by a customer with the understanding that they may be contacted at a later date by your business. For example, submitting a form or signing up for a trial. | fbq('track', 'Lead'); |\n\n# Server Event Parameters\n\n[https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/server-event/](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/server-event/)\n\n### CUSTOMER INFORMATION PARAMETERS (SHA256 + UTF-8)\n\n[https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/customer-information-parameters/](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/customer-information-parameters/)\n\n# External ID\n\n[https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/external-id/](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/external-id/)"
+			},
+			"response": [
+				{
+					"name": "[200] Ok - one event received.",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"Lead\",\r\n            \"event_time\": {{unix date}},\r\n            \"event_id\": \"{{event id}}\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"fbp\": null,\r\n                \"country\": \"885036a0da3dff3c3e05bc79bf49382b12bc5098514ed57ce0875aba1aa2c40d\",\r\n                \"external_id\": \"629f4cf9337b0d0c76f305d860f98894cfa8c279516b425747514ca8710deb97\",\r\n                \"client_ip_address\": \"{{user ip}}\",\r\n                \"client_user_agent\": \"{{user browser}}\"\r\n            },\r\n\r\n            \"custom_data\": {\r\n                \"currency\": \"USD\",\r\n                \"value\": \"142.52\",\r\n                \"content_name\": \"sampleValue\",\r\n                \"content_category\": \"sampleCategory\"\r\n            },\r\n\r\n            \"action_source\": \"email\",\r\n            \"event_source_url\": \"{{thank you page}}\",\r\n            \"opt_out\": true\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{pixel id}}/events",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{pixel id}}",
+								"events"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "x-ad-account-usage",
+							"value": "{\"acc_id_util_pct\":0}"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "cross-origin"
+						},
+						{
+							"key": "x-app-usage",
+							"value": "{\"call_count\":0,\"total_cputime\":0,\"total_time\":0}"
+						},
+						{
+							"key": "x-fb-rlafr",
+							"value": "0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v12.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "private, no-cache, no-store, must-revalidate"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "AhzFtQJRpcKhTrstxdTlhg2"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "AGYxwKUpy0z"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1005033023"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "NIdvBDmu/kfhck31R0nQoJ3FmwY2un2Criw6kwP3WWVfyX7g6Jyd+TFgMTXnrVpwYhOt1hj90RZFSFhsTso8Hg=="
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 07 Feb 2022 18:52:23 GMT"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=3600, h3-29=\":443\"; ma=3600"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "74"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"events_received\": 1,\n    \"messages\": [],\n    \"fbtrace_id\": \"AhzFtQJRpcKhTrstxdTlhg2\"\n}"
+				}
+			]
+		}
+	]
+}
