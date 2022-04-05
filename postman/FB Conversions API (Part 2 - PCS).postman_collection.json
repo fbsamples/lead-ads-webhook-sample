@@ -1,0 +1,892 @@
+{
+	"info": {
+		"_postman_id": "900498df-885a-415a-b497-594bc84b96d3",
+		"name": "FB Conversions API (Part 2 - PCS)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1) Posting a Main event - redundant",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{system user access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"Lead\",\r\n            \"event_time\": {{unix date}},\r\n            \"event_id\": \"{{event id}}\",\r\n\r\n            \"action_source\": \"website\",\r\n            \"event_source_url\": \"{{thank you page}}\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ],                \r\n                \"client_ip_address\": \"{{user ip}}\",\r\n                \"client_user_agent\": \"{{user browser}}\",\r\n                \r\n                \"fbc\": \"{{fbc}}\",\r\n                \"fbp\": \"{{fbp}}\"\r\n            }\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{pixel id}}/events",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{pixel id}}",
+						"events"
+					]
+				},
+				"description": "For the Post Conversion Signals solution, the main event usually happens on the website and has a conversion window of up to 7 days after the ad impression. Therefore the recommendation is to share it redundantly: both from the browser, through the Meta's Pixel, solution and from the server, through the Conversions API.\n\n# [Server Event Parameters](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/server-event/)\n\nWe can split the event parameters into two types: event information and customer information. The event information is related to the event itself while the customer information is related to the person that triggered the action represented by the event.\n\nThe required **event parameters** are:\n\n*   event name\n*   event time\n*   event id\n    *   this is used for deduplication, see section below\n*   action source\n    *   this should probably be set as \"website\" since the event happens on the website\n*   event source url\n    *   only required if the \"action_source\" is website\n    *   it must be the url of the page where the event happened\n\nFor the [customer information](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/customer-information-parameters/), at least one information is required to be shared under the user_data parameter. There are two type of information that can be shared:\n\n*   personal identifiable information (PII). They must be hashed using the SHA256 algorithm before making the API call. E.g:\n    *   email\n    *   telephone\n    *   first name\n    *   last name\n    *   zip code\n*   information from the browser. They must **not** be hashed before sending making the API call. Eg:\n    *   ip address\n    *   user agent\n    *   facebook click id cookie (fbc)\n    *   browser id cookie (fbp)\n\nYou can find the full list of information that can be passed [here](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/customer-information-parameters/). The ones listed above are the most effective and highly recommended\n\n## Deduplication\n\nBecause the same event will be shared twice, we'll need to deduplicate it. Otherwise, the campaign's optimization and results will be affected.\n\nIn order to deduplicate the events, you need to generate a unique id (uuid) for each event that is triggered and pass the generated value on the event id parameter. Then, for the same event it's required to pass the same event id value both on the browser call and on the server call. You can find [more information here](https://developers.facebook.com/docs/marketing-api/conversions-api/deduplicate-pixel-and-server-events). Note that for the browser call, the event id parameter is eventID while for the server call the event id parameter is event_id.\n\n# `fbp` and `fbc` Parameters\n\nRef.: [https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/fbp-and-fbc/](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/fbp-and-fbc/)"
+			},
+			"response": [
+				{
+					"name": "[400] Bad Request - Event Timestamp Too Old (must have a 7-day window)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"Lead\",\r\n            \"event_time\": {{unix date}},\r\n            \"event_id\": \"{{event id}}\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ],                \r\n                \"client_ip_address\": \"{{user ip}}\",\r\n                \"client_user_agent\": \"{{user browser}}\",\r\n\r\n                \"fbc\": null,\r\n                \"fbp\": null\r\n            },\r\n\r\n            \"action_source\": \"website\",\r\n            \"event_source_url\": \"{{thank you page}}\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{pixel id}}/events",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{pixel id}}",
+								"events"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "x-ad-account-usage",
+							"value": "{\"acc_id_util_pct\":0}"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "cross-origin"
+						},
+						{
+							"key": "x-app-usage",
+							"value": "{\"call_count\":0,\"total_cputime\":0,\"total_time\":0}"
+						},
+						{
+							"key": "x-fb-rlafr",
+							"value": "0"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "WWW-Authenticate",
+							"value": "OAuth \"Facebook Platform\" \"invalid_request\" \"Invalid parameter\""
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v12.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-store"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "AzdtPgDCr58GuXYBh2T7Scs"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "CUkIVN9J6YR"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1005233340"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "0dNSPVLxz9PwqTJCXKdrsRBhYK9vNYSQxRhDou5g1tY1scRw91hQYTiPelu23jcg+CAb+ou1ERu0754ijLJOVQ=="
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 23 Mar 2022 20:15:57 GMT"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "276"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": {\n        \"message\": \"Invalid parameter\",\n        \"type\": \"OAuthException\",\n        \"code\": 100,\n        \"error_subcode\": 2804003,\n        \"is_transient\": false,\n        \"error_user_title\": \"Event Timestamp Too Old\",\n        \"error_user_msg\": \"The timestamp for this event is too far in the past. Events need to be sent from your server within 7 days of when they occurred. Enter a timestamp that has occurred within the last 7 days.\",\n        \"fbtrace_id\": \"AzdtPgDCr58GuXYBh2T7Scs\"\n    }\n}"
+				},
+				{
+					"name": "[200] Ok - one event received.",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"Lead\",\r\n            \"event_time\": {{unix date}},\r\n            \"event_id\": \"{{event id}}\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ],                \r\n                \"client_ip_address\": \"{{user ip}}\",\r\n                \"client_user_agent\": \"{{user browser}}\",\r\n\r\n                \"fbc\": null,\r\n                \"fbp\": null\r\n            },\r\n\r\n            \"action_source\": \"website\",\r\n            \"event_source_url\": \"{{thank you page}}\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{pixel id}}/events",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{pixel id}}",
+								"events"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "x-ad-account-usage",
+							"value": "{\"acc_id_util_pct\":0}"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "cross-origin"
+						},
+						{
+							"key": "x-app-usage",
+							"value": "{\"call_count\":0,\"total_cputime\":0,\"total_time\":0}"
+						},
+						{
+							"key": "x-fb-rlafr",
+							"value": "0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v12.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "private, no-cache, no-store, must-revalidate"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "AZzJgXHjvWBhkSL3JGKd9ji"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "HF3YxVlpHLW"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1005233340"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "x0MWrEEGfE10jl+tLCgULSH+3WJwn+3Zm6JpEI8o23mSNPQcG6sC2oUpaYR8u4BiV9zjQFgjYeaVFu6Y6+s4+Q=="
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 23 Mar 2022 20:24:04 GMT"
+						},
+						{
+							"key": "Priority",
+							"value": "u=3,i"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "74"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"events_received\": 1,\n    \"messages\": [],\n    \"fbtrace_id\": \"AZzJgXHjvWBhkSL3JGKd9ji\"\n}"
+				}
+			]
+		},
+		{
+			"name": "1) Posting a Main event - server only",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{system user access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"LeadFromChat\",\r\n            \"event_time\": {{unix date}},\r\n            \r\n            \"action_source\": \"chat\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ]\r\n            }\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{pixel id}}/events",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{pixel id}}",
+						"events"
+					]
+				},
+				"description": "For the Post Conversion Signals solution, the main event usually happens on the website and has a conversion window of up to 7 days after the ad impression. However, it may happen outside of a website. In that case, the Main Event will be shared only from the server, through the Conversions API. These events are usually referred as \"server-only\" events.\n\n# [Server Event Parameters](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/server-event/)\n\nWe can split the event parameters into two types: event information and customer information. The event information is related to the event itself while the customer information is related to the person that triggered the action represented by the event.\n\nThe required **event parameters** are:\n\n*   event name\n*   event time\n*   action source\n    \n\nFor the [customer information](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/customer-information-parameters/), at least one information is required to be shared under the user_data parameter. There are two type of information that can be shared:\n\n*   personal identifiable information (PII). They must be hashed using the SHA256 algorithm before making the API call. E.g:\n    *   email\n    *   telephone\n    *   first name\n    *   last name\n    *   zip code\n*   information from the browser. They must **not** be hashed before sending making the API call. However, **since event does not happen on the website, these information will probably not be available for sharing.** Eg:\n    *   ip address\n    *   user agent\n    *   facebook click id cookie (fbc)\n    *   browser id cookie (fbp)\n\nYou can find the full list of information that can be passed [here](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/customer-information-parameters/). The ones listed above are the most effective and highly recommended\n\n## Deduplication\n\nSince this is a server only event, there's no need to worry about [deduplication](https://developers.facebook.com/docs/marketing-api/conversions-api/deduplicate-pixel-and-server-events). That's why the event id parameter is does not need to be sent."
+			},
+			"response": [
+				{
+					"name": "[400] Bad Request - Missing Event Name Parameter",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": [\r\n        {\r\n            \r\n            \"event_time\": {{unix date}},\r\n\r\n            \"action_source\": \"chat\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ]\r\n            }\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{pixel id}}/events",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{pixel id}}",
+								"events"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "x-ad-account-usage",
+							"value": "{\"acc_id_util_pct\":0}"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "cross-origin"
+						},
+						{
+							"key": "x-app-usage",
+							"value": "{\"call_count\":0,\"total_cputime\":0,\"total_time\":0}"
+						},
+						{
+							"key": "x-fb-rlafr",
+							"value": "0"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "WWW-Authenticate",
+							"value": "OAuth \"Facebook Platform\" \"invalid_request\" \"Invalid parameter\""
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v12.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-store"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "Adqo4_8koKiEcFFtgxU21IA"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "DzVPLe69bPA"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1005299132"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "fuOcs0sLSlKkZs9a2I4FnzynwNoXdcrcp9HOs5bJIV02Tj63QpD50y3TXbyV5LYc7WEKQOORfePCyJs7VTkvPw=="
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 05 Apr 2022 18:12:51 GMT"
+						},
+						{
+							"key": "Priority",
+							"value": "u=3,i"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "210"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": {\n        \"message\": \"Invalid parameter\",\n        \"type\": \"OAuthException\",\n        \"code\": 100,\n        \"error_subcode\": 2804019,\n        \"is_transient\": false,\n        \"error_user_title\": \"Server Side Api Parameter Error\",\n        \"error_user_msg\": \"The parameter $['data'][0]['event_name'] is required.\",\n        \"fbtrace_id\": \"Adqo4_8koKiEcFFtgxU21IA\"\n    }\n}"
+				},
+				{
+					"name": "[200] Ok - one event received.",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"LeadFromChat\",\r\n            \"event_time\": {{unix date}},\r\n            \r\n            \"action_source\": \"chat\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ]\r\n            }\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{pixel id}}/events",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{pixel id}}",
+								"events"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "x-ad-account-usage",
+							"value": "{\"acc_id_util_pct\":0}"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "cross-origin"
+						},
+						{
+							"key": "x-app-usage",
+							"value": "{\"call_count\":0,\"total_cputime\":0,\"total_time\":0}"
+						},
+						{
+							"key": "x-fb-rlafr",
+							"value": "0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v12.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "private, no-cache, no-store, must-revalidate"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "A0Svkh2vdTthxtYolrBAbZr"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "HOIcLI+99q3"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1005299463"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "N86qaG3lpzk2mBPegE+gkqOFJVUc+nNwej5ZFKEtbXwR0wVzoXyyohuraW+qLAhKlC6tEoei3ec2p4rPb4AnJw=="
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 05 Apr 2022 18:14:13 GMT"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "Content-Length",
+							"value": "74"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"events_received\": 1,\n    \"messages\": [],\n    \"fbtrace_id\": \"A0Svkh2vdTthxtYolrBAbZr\"\n}"
+				}
+			]
+		},
+		{
+			"name": "2) Posting a Post-Conversion event",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{system user access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"LeadQualified\",\r\n            \"event_time\": {{unix date}},\r\n\r\n            \"action_source\": \"system_generated\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ]                \r\n            }\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{pixel id}}/events",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{pixel id}}",
+						"events"
+					]
+				},
+				"description": "For the Post Conversion Signals solution, the Post Conversion Event usually happens offline at most 30 days after the Main Event.\n\n# [Server Event Parameters](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/server-event/)\n\nWe can split the event parameters into two types: event information and customer information. The event information is related to the event itself while the customer information is related to the person that triggered the action represented by the event.\n\nThe required **event parameters** are:\n\n*   event name\n*   event time\n*   action source\n    \n\nFor the [customer information](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/customer-information-parameters/), at least one information is required to be shared under the user_data parameter. There are two type of information that can be shared:\n\n*   personal identifiable information (PII). They must be hashed using the SHA256 algorithm before making the API call. E.g:\n    *   email\n    *   telephone\n    *   first name\n    *   last name\n    *   zip code\n*   information from the browser. They must **not** be hashed before sending making the API call. However, **since event does not happen on the website, these information will probably not be available for sharing.** Eg:\n    *   ip address\n    *   user agent\n    *   facebook click id cookie (fbc)\n    *   browser id cookie (fbp)\n\nYou can find the full list of information that can be passed [here](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/customer-information-parameters/). The ones listed above are the most effective and highly recommended\n\n## Deduplication\n\nSince this is a server only event, there's no need to worry about [deduplication](https://developers.facebook.com/docs/marketing-api/conversions-api/deduplicate-pixel-and-server-events). That's why the event id parameter is does not need to be sent."
+			},
+			"response": [
+				{
+					"name": "[400] Bad Request - missing user_data section.",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"LeadQualified\",\r\n            \"event_time\": {{unix date}},\r\n\r\n           \r\n\r\n            \"action_source\": \"system_generated\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{pixel id}}/events",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{pixel id}}",
+								"events"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "x-ad-account-usage",
+							"value": "{\"acc_id_util_pct\":0}"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "cross-origin"
+						},
+						{
+							"key": "x-app-usage",
+							"value": "{\"call_count\":0,\"total_cputime\":0,\"total_time\":0}"
+						},
+						{
+							"key": "x-fb-rlafr",
+							"value": "0"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "WWW-Authenticate",
+							"value": "OAuth \"Facebook Platform\" \"invalid_request\" \"Invalid parameter\""
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v12.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-store"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "A4o_5xZiFBDyC1_X8W-RFHd"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "AbZin8uKLAr"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1005233340"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "MxRjC3Zu87Yi91w+9eGpu1/hoZ4mm478YlvsZKGbO5dQJi9PVI/AcciEdb8EcZTJ1DnNFgj6rA94OlmeaUylMQ=="
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 23 Mar 2022 20:31:40 GMT"
+						},
+						{
+							"key": "Priority",
+							"value": "u=3,i"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "Content-Length",
+							"value": "227"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": {\n        \"message\": \"Invalid parameter\",\n        \"type\": \"OAuthException\",\n        \"code\": 100,\n        \"error_subcode\": 2804014,\n        \"is_transient\": false,\n        \"error_user_title\": \"Missing User Parameters\",\n        \"error_user_msg\": \"No user parameters have been added for this event. Include at least one user parameter for this event other than client_user_agent.\",\n        \"fbtrace_id\": \"A4o_5xZiFBDyC1_X8W-RFHd\"\n    }\n}"
+				},
+				{
+					"name": "[200] Ok - one event received.",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"LeadQualified\",\r\n            \"event_time\": {{unix date}},\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ]                \r\n            },\r\n\r\n            \"action_source\": \"system_generated\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{pixel id}}/events",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{pixel id}}",
+								"events"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "x-ad-account-usage",
+							"value": "{\"acc_id_util_pct\":0}"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "cross-origin"
+						},
+						{
+							"key": "x-app-usage",
+							"value": "{\"call_count\":0,\"total_cputime\":0,\"total_time\":0}"
+						},
+						{
+							"key": "x-fb-rlafr",
+							"value": "0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v12.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "private, no-cache, no-store, must-revalidate"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "AXf7v2gWNpBxmqOa1kkotL2"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "FGz+6uUd2Wv"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1005233340"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "295NQgxhEKi1AdV/SW3OinbD2iYs/j36RVyLkw1uaQhxrB8feumz8WMtyG86tu167xVtaubDfn70FlEPahcAIg=="
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 23 Mar 2022 20:29:34 GMT"
+						},
+						{
+							"key": "Priority",
+							"value": "u=3,i"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "74"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"events_received\": 1,\n    \"messages\": [],\n    \"fbtrace_id\": \"AXf7v2gWNpBxmqOa1kkotL2\"\n}"
+				}
+			]
+		}
+	]
+}

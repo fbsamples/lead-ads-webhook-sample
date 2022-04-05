@@ -1,0 +1,1510 @@
+{
+	"info": {
+		"_postman_id": "ba2bcf7b-52bf-4410-b7f8-6ced9b800fd0",
+		"name": "FB Offline Conversions API (oCAPI)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "0) Checking Business Manager",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{admin system user access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"ViewContent\",\r\n            \"event_time\": {{unix date}},\r\n            \"event_id\": \"{{event id}}\",\r\n            \"user_data\": {\r\n                \"client_ip_address\": \"{{user ip}}\",\r\n                \"client_user_agent\": \"{{user browser}}\"                \r\n            },\r\n            \"action_source\": \"website\",\r\n            \"event_source_url\": \"{product landing page}}\"\r\n        }\r\n    ],\r\n    \"test_event_code\": \"{{server event test code}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{business manager id}}",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{business manager id}}"
+					]
+				},
+				"description": "**Offline Conversions API**:\n\n[https://developers.facebook.com/docs/marketing-api/offline-conversions](https://developers.facebook.com/docs/marketing-api/offline-conversions)"
+			},
+			"response": [
+				{
+					"name": "[200] Ok - Business Manager's id and name.",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"ViewContent\",\r\n            \"event_time\": {{unix date}},\r\n            \"event_id\": \"{{event id}}\",\r\n            \"user_data\": {\r\n                \"client_ip_address\": \"{{user ip}}\",\r\n                \"client_user_agent\": \"{{user browser}}\"                \r\n            },\r\n            \"action_source\": \"website\",\r\n            \"event_source_url\": \"{product landing page}}\"\r\n        }\r\n    ],\r\n    \"test_event_code\": \"{{server event test code}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{business manager id}}",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{business manager id}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "ETag",
+							"value": "\"fc6e6608dbd425318f9916c06676cafdafc2bcdf\""
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "cross-origin"
+						},
+						{
+							"key": "x-app-usage",
+							"value": "{\"call_count\":0,\"total_cputime\":0,\"total_time\":0}"
+						},
+						{
+							"key": "x-fb-rlafr",
+							"value": "0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v12.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "private, no-cache, no-store, must-revalidate"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "A5T_9t2wius1WpUNxuidCC-"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "Azm4dKjb3r6"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1004998813"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "M4cAvcwaebi/Bf+LiUuq52QGwy4fujCN3XC4G8Xo/43mReqY96Pecg55/Dm7BldXC/YWPeVixjQRBeTNl+CHUg=="
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 31 Jan 2022 17:41:41 GMT"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=3600, h3-29=\":443\"; ma=3600"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "Content-Length",
+							"value": "67"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"787260718844385\",\n    \"name\": \"França's Digital Advertising\"\n}"
+				}
+			]
+		},
+		{
+			"name": "1) Checking Offline Event Set",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{system user access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"ViewContent\",\r\n            \"event_time\": {{unix date}},\r\n            \"event_id\": \"{{event id}}\",\r\n            \"user_data\": {\r\n                \"client_ip_address\": \"{{user ip}}\",\r\n                \"client_user_agent\": \"{{user browser}}\"                \r\n            },\r\n            \"action_source\": \"website\",\r\n            \"event_source_url\": \"{product landing page}}\"\r\n        }\r\n    ],\r\n    \"test_event_code\": \"{{server event test code}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{data set id}}",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{data set id}}"
+					]
+				},
+				"description": "**Offline Conversions API**:\n\n[https://developers.facebook.com/docs/marketing-api/offline-conversions](https://developers.facebook.com/docs/marketing-api/offline-conversions)\n\n**Offline Conversion Data Set**:\n\n[https://developers.facebook.com/docs/graph-api/reference/offline-conversion-data-set/](https://developers.facebook.com/docs/graph-api/reference/offline-conversion-data-set/)\n\n**Access Token Debugger**\n\n[https://developers.facebook.com/tools/debug/accesstoken/](https://developers.facebook.com/tools/debug/accesstoken/)"
+			},
+			"response": [
+				{
+					"name": "[403] Forbidden - missing ads_management scope.",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"ViewContent\",\r\n            \"event_time\": {{unix date}},\r\n            \"event_id\": \"{{event id}}\",\r\n            \"user_data\": {\r\n                \"client_ip_address\": \"{{user ip}}\",\r\n                \"client_user_agent\": \"{{user browser}}\"                \r\n            },\r\n            \"action_source\": \"website\",\r\n            \"event_source_url\": \"{product landing page}}\"\r\n        }\r\n    ],\r\n    \"test_event_code\": \"{{server event test code}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{data set id}}",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{data set id}}"
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "cross-origin"
+						},
+						{
+							"key": "x-app-usage",
+							"value": "{\"call_count\":0,\"total_cputime\":0,\"total_time\":0}"
+						},
+						{
+							"key": "x-fb-rlafr",
+							"value": "0"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "WWW-Authenticate",
+							"value": "OAuth \"Facebook Platform\" \"insufficient_scope\" \"(#294) Managing advertisements requires an access token with the extended permission for ads_management\""
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v12.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-store"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "AxAV7xqPrHuQ4ZqKnBNsAPo"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "BUAbxvEAX0Q"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1005017847"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "CbG8uT+92WK1/ueGYxnjbbr8iiVbPTjRhlg/myN+GFC0t8E4ymuO5u8P2tnfFj/dLY419oyd2h0Y7ZFJxXFgUg=="
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 03 Feb 2022 14:03:45 GMT"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=3600, h3-29=\":443\"; ma=3600"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "201"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": {\n        \"message\": \"(#294) Managing advertisements requires an access token with the extended permission for ads_management\",\n        \"type\": \"OAuthException\",\n        \"code\": 294,\n        \"fbtrace_id\": \"AxAV7xqPrHuQ4ZqKnBNsAPo\"\n    }\n}"
+				},
+				{
+					"name": "[400] Bad Request - missing permission on the asset (Offline event sets).",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"ViewContent\",\r\n            \"event_time\": {{unix date}},\r\n            \"event_id\": \"{{event id}}\",\r\n            \"user_data\": {\r\n                \"client_ip_address\": \"{{user ip}}\",\r\n                \"client_user_agent\": \"{{user browser}}\"                \r\n            },\r\n            \"action_source\": \"website\",\r\n            \"event_source_url\": \"{product landing page}}\"\r\n        }\r\n    ],\r\n    \"test_event_code\": \"{{server event test code}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{data set id}}",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{data set id}}"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "cross-origin"
+						},
+						{
+							"key": "x-app-usage",
+							"value": "{\"call_count\":0,\"total_cputime\":0,\"total_time\":0}"
+						},
+						{
+							"key": "x-fb-rlafr",
+							"value": "0"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "WWW-Authenticate",
+							"value": "OAuth \"Facebook Platform\" \"invalid_request\" \"Unsupported get request. Object with ID '446900580466057' does not exist, cannot be loaded due to missing permissions, or does not support this operation. Please read the Graph API documentation at https://developers.facebook.com/docs/graph-api\""
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v12.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-store"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "AWqFGcBapFrJONEBA7hLJOX"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "FxZ0rgh1M5T"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1005058114"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "l16HbC5ImilYyVP4QU/uSGtKskY8tCd75gs6RdZ1RArG7EuGzmzLo5nW6UbejsMewGWuVNVzRDd1sIgeGmZF/A=="
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 11 Feb 2022 14:33:12 GMT"
+						},
+						{
+							"key": "Priority",
+							"value": "u=3,i"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=3600, h3-29=\":443\"; ma=3600"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "260"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": {\n        \"message\": \"Unsupported get request. Object with ID '446900580466057' does not exist, cannot be loaded due to missing permissions, or does not support this operation. Please read the Graph API documentation at https://developers.facebook.com/docs/graph-api\",\n        \"type\": \"GraphMethodException\",\n        \"code\": 100,\n        \"error_subcode\": 33,\n        \"fbtrace_id\": \"AWqFGcBapFrJONEBA7hLJOX\"\n    }\n}"
+				},
+				{
+					"name": "[200] OK - information retrieved.",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"ViewContent\",\r\n            \"event_time\": {{unix date}},\r\n            \"event_id\": \"{{event id}}\",\r\n            \"user_data\": {\r\n                \"client_ip_address\": \"{{user ip}}\",\r\n                \"client_user_agent\": \"{{user browser}}\"                \r\n            },\r\n            \"action_source\": \"website\",\r\n            \"event_source_url\": \"{product landing page}}\"\r\n        }\r\n    ],\r\n    \"test_event_code\": \"{{server event test code}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{data set id}}",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{data set id}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "ETag",
+							"value": "\"a859c2fd77139c3b492d3787a0f3fa92f0379351\""
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "cross-origin"
+						},
+						{
+							"key": "x-app-usage",
+							"value": "{\"call_count\":0,\"total_cputime\":0,\"total_time\":0}"
+						},
+						{
+							"key": "x-fb-rlafr",
+							"value": "0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v12.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "private, no-cache, no-store, must-revalidate"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "A4rcYnXGATEItyZ0YuQmkzt"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "CMGlXgefjnY"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1005058114"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "YTb1gq1EQC2Z8bInAL2C9r+8/h8TJ8TcUo090WOScmgqmju+RBPTBwlPAUcxF06kgOKlPNKT/4XuWD9uQAdXVw=="
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 11 Feb 2022 14:36:16 GMT"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=3600, h3-29=\":443\"; ma=3600"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "Content-Length",
+							"value": "156"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"446900580466057\",\n    \"name\": \"França's Offline Event Set\",\n    \"business\": {\n        \"id\": \"787260718844385\",\n        \"name\": \"França's Digital Advertising\"\n    },\n    \"enable_auto_assign_to_accounts\": true,\n    \"is_restricted_use\": false\n}"
+				}
+			]
+		},
+		{
+			"name": "2) Upload Offline Events",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{system user access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"match_keys\": {\r\n                \"phone\": [\"{{hashed user phone}}\"], \r\n                \"email\": [\"{{hashed user email}}\"]\r\n            }, \r\n            \"event_time\": {{unix date}},\r\n            \"event_name\": \"Purchase\",\r\n            \"currency\": \"USD\", \r\n            \"value\": 16.01,\r\n\r\n            \"contents\": [\r\n                {\"id\": \"A\", \"quantity\": 1, \"brand\": \"Brand_A\", \"category\": \"\", \"price\": 10.0},\r\n                {\"id\": \"B\", \"quantity\": 1, \"brand\": \"Brand_B\", \"category\": \"\", \"price\": 10.0},\r\n                {\"id\": \"C\", \"quantity\": 1, \"brand\": \"Brand_C\", \"category\": \"\", \"price\": 10.0}\r\n            ],\r\n            \"custom_data\": {\r\n                \"event_source\": \"in_store\"\r\n            }\r\n        },\r\n        { \r\n            \"match_keys\": {\"lead_id\": \"{{leadgen id}}\"}, \r\n            \"event_name\": \"Lead\",\r\n            \"event_time\": {{unix date}},\r\n            \"custom_data\": {\r\n                \"event_source\": \"email\",\r\n                \"action_type\": \"sent_open_click\",\r\n                \"email_type\": \"email_type_code\", \r\n                \"email_provider\": \"gmail_yahoo_hotmail\"\r\n            }\r\n        }       \r\n    ]    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{data set id}}/events?upload_tag=\"store_data\"",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{data set id}}",
+						"events"
+					],
+					"query": [
+						{
+							"key": "upload_tag",
+							"value": "\"store_data\""
+						}
+					]
+				},
+				"description": "**Offline Conversions API**:\n\n[https://developers.facebook.com/docs/marketing-api/offline-conversions](https://developers.facebook.com/docs/marketing-api/offline-conversions)\n\n**Upload Events:**\n\nYou should upload transaction **within 62 days** of the conversion.\n\nRef.: [https://developers.facebook.com/docs/marketing-api/offline-conversions#upload-events](https://developers.facebook.com/docs/marketing-api/offline-conversions#upload-events)\n\nYou can generate a test lead here:\n\n[https://developers.facebook.com/tools/lead-ads-testing](https://developers.facebook.com/tools/lead-ads-testing)"
+			},
+			"response": [
+				{
+					"name": "[400] - Bad Request no event was sent",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": [\r\n    \r\n    ]    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{data set id}}/events?upload_tag=\"store_data\"",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{data set id}}",
+								"events"
+							],
+							"query": [
+								{
+									"key": "upload_tag",
+									"value": "\"store_data\""
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "cross-origin"
+						},
+						{
+							"key": "x-app-usage",
+							"value": "{\"call_count\":0,\"total_cputime\":0,\"total_time\":0}"
+						},
+						{
+							"key": "x-fb-rlafr",
+							"value": "0"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "WWW-Authenticate",
+							"value": "OAuth \"Facebook Platform\" \"invalid_request\" \"(#100) param data must be non-empty.\""
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v12.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-store"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "A-KgJYHfPIGNSAVVybUYE_j"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "Gx5MN0L49wS"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1005077787"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "tNfpXyqg6TEoiyW/kPRuY/5wgyg/IEOlmIv3dMTPQPgBzQBKai84CcjFy1f5URxEfc11PZcTdzQzaJm7qD+/8g=="
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 16 Feb 2022 14:41:50 GMT"
+						},
+						{
+							"key": "Priority",
+							"value": "u=3,i"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=3600, h3-29=\":443\"; ma=3600"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "134"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": {\n        \"message\": \"(#100) param data must be non-empty.\",\n        \"type\": \"OAuthException\",\n        \"code\": 100,\n        \"fbtrace_id\": \"A-KgJYHfPIGNSAVVybUYE_j\"\n    }\n}"
+				},
+				{
+					"name": "[400] - Bad Request PII not hashed.",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"match_keys\": {\"phone\": [\"HASH1\",\"HASH2\"], \"email\": [\"HASH3\",\"HASH4\"]}, \r\n            \"currency\": \"USD\", \r\n            \"value\": 16,\r\n            \"event_name\": \"Purchase\",\r\n            \"event_time\": {{unix date}},\r\n            \"contents\": [\r\n                {\"id\": \"A\", \"quantity\": 1},\r\n                {\"id\": \"B\", \"quantity\": 2},\r\n                {\"id\": \"C\", \"quantity\": 1}\r\n            ],\r\n            \"custom_data\": {\r\n                \"event_source\": \"in_store\"\r\n            }\r\n        }, \r\n        { \r\n            \"match_keys\": {\"lead_id\": \"12345\"}, \r\n            \"event_name\": \"Lead\",\r\n            \"event_time\": {{unix date}},\r\n            \"contents\": [\r\n                {\"id\": \"A\", \"quantity\": 1},\r\n                {\"id\": \"B\", \"quantity\": 2},\r\n                {\"id\": \"C\", \"quantity\": 1}\r\n            ],\r\n            \"custom_data\": {\r\n                \"event_source\": \"email\",\r\n                \"action_type\": \"sent_open_click\",\r\n                \"email_type\": \"email_type_code\", \r\n                \"email_provider\": \"gmail_yahoo_hotmail\"\r\n            }\r\n        }\r\n    ]    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{data set id}}/events?upload_tag=\"store_data\"",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{data set id}}",
+								"events"
+							],
+							"query": [
+								{
+									"key": "upload_tag",
+									"value": "\"store_data\""
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "x-ad-account-usage",
+							"value": "{\"acc_id_util_pct\":0}"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "cross-origin"
+						},
+						{
+							"key": "x-app-usage",
+							"value": "{\"call_count\":0,\"total_cputime\":0,\"total_time\":0}"
+						},
+						{
+							"key": "x-fb-rlafr",
+							"value": "0"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "WWW-Authenticate",
+							"value": "OAuth \"Facebook Platform\" \"invalid_request\" \"Invalid parameter\""
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v12.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-store"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "A8YA9r4bO1kltpiQ4cRapC2"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "C4Ag55psRmz"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1005058114"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "CW7tfRABJuKGDvhkb1o3Qb6hhRgrZUYS6TNfta4a7bvZA+mCyShthU6pye6ly8zoWNJ1/nYF3w+vPPkbuGr3HQ=="
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 11 Feb 2022 15:10:11 GMT"
+						},
+						{
+							"key": "Priority",
+							"value": "u=3,i"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=3600, h3-29=\":443\"; ma=3600"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "285"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": {\n        \"message\": \"Invalid parameter\",\n        \"type\": \"OAuthException\",\n        \"code\": 100,\n        \"error_subcode\": 2804017,\n        \"is_transient\": false,\n        \"error_user_title\": \"PII Not Hashed\",\n        \"error_user_msg\": \"The em, ph parameters aren't hashed. Hash all user parameters as SHA256, except for client user agent, click ID, and browser ID. Any other user parameters that are not hashed are automatically rejected by Facebook.\",\n        \"fbtrace_id\": \"A8YA9r4bO1kltpiQ4cRapC2\"\n    }\n}"
+				},
+				{
+					"name": "[400] - Bad Request data is not sent as per documentation (missing double quotes)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"match_keys\": {\"phone\": [{{hashed user phone}}], \"email\": [{{hashed user email}}]}, \r\n            \"currency\": \"USD\", \r\n            \"value\": 16,\r\n            \"event_name\": \"Purchase\",\r\n            \"event_time\": {{unix date}},\r\n            \"contents\": [\r\n                {\"id\": \"A\", \"quantity\": 1},\r\n                {\"id\": \"B\", \"quantity\": 2},\r\n                {\"id\": \"C\", \"quantity\": 3}\r\n            ],\r\n            \"custom_data\": {\r\n                \"event_source\": \"in_store\"\r\n            }\r\n        }, \r\n        { \r\n            \"match_keys\": {\"lead_id\": \"12345\"}, \r\n            \"event_name\": \"Lead\",\r\n            \"event_time\": {{unix date}},\r\n            \"custom_data\": {\r\n                \"event_source\": \"email\",\r\n                \"action_type\": \"sent_open_click\",\r\n                \"email_type\": \"email_type_code\", \r\n                \"email_provider\": \"gmail_yahoo_hotmail\"\r\n            }\r\n        }\r\n    ]    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{data set id}}/events?upload_tag=\"store_data\"",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{data set id}}",
+								"events"
+							],
+							"query": [
+								{
+									"key": "upload_tag",
+									"value": "\"store_data\""
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "cross-origin"
+						},
+						{
+							"key": "x-app-usage",
+							"value": "{\"call_count\":0,\"total_cputime\":0,\"total_time\":0}"
+						},
+						{
+							"key": "x-fb-rlafr",
+							"value": "0"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "WWW-Authenticate",
+							"value": "OAuth \"Facebook Platform\" \"invalid_request\" \"(#100) The parameter data is required\""
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v12.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-store"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "AuP1yvy5VrL6r3H0y8N40V8"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "ATnstEo1Ngl"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1005077787"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "1VX3v4jbV3iPUfLkG00QHiAV0zla8dE24AZBZpKzA092v9FUKoFlC0T0xoagUGyv7nMIqChhod+HrxXx0CjKBg=="
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 16 Feb 2022 13:49:03 GMT"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=3600, h3-29=\":443\"; ma=3600"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "135"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": {\n        \"message\": \"(#100) The parameter data is required\",\n        \"type\": \"OAuthException\",\n        \"code\": 100,\n        \"fbtrace_id\": \"AuP1yvy5VrL6r3H0y8N40V8\"\n    }\n}"
+				},
+				{
+					"name": "[200] - Ok, 2 processed entries",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"match_keys\": {\r\n                \"phone\": [\"{{hashed user phone}}\"], \r\n                \"email\": [\"{{hashed user email}}\"]\r\n            }, \r\n            \"event_time\": {{unix date}},\r\n            \"event_name\": \"Purchase\",\r\n            \"currency\": \"USD\", \r\n            \"value\": 16.01,\r\n\r\n            \"contents\": [\r\n                {\"id\": \"A\", \"quantity\": 1, \"brand\": \"Brand_A\", \"category\": \"\", \"price\": 10.0},\r\n                {\"id\": \"B\", \"quantity\": 1, \"brand\": \"Brand_B\", \"category\": \"\", \"price\": 10.0},\r\n                {\"id\": \"C\", \"quantity\": 1, \"brand\": \"Brand_C\", \"category\": \"\", \"price\": 10.0}\r\n            ],\r\n            \"custom_data\": {\r\n                \"event_source\": \"in_store\"\r\n            }\r\n        },\r\n        { \r\n            \"match_keys\": {\"lead_id\": \"{{leadgen id}}\"}, \r\n            \"event_name\": \"Lead\",\r\n            \"event_time\": {{unix date}},\r\n            \"custom_data\": {\r\n                \"event_source\": \"email\",\r\n                \"action_type\": \"sent_open_click\",\r\n                \"email_type\": \"email_type_code\", \r\n                \"email_provider\": \"gmail_yahoo_hotmail\"\r\n            }\r\n        }       \r\n    ]    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{data set id}}/events?upload_tag=\"store_data\"",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{data set id}}",
+								"events"
+							],
+							"query": [
+								{
+									"key": "upload_tag",
+									"value": "\"store_data\""
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "x-ad-account-usage",
+							"value": "{\"acc_id_util_pct\":0}"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "cross-origin"
+						},
+						{
+							"key": "x-app-usage",
+							"value": "{\"call_count\":0,\"total_cputime\":0,\"total_time\":0}"
+						},
+						{
+							"key": "x-fb-rlafr",
+							"value": "0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v12.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "private, no-cache, no-store, must-revalidate"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "A1bXMDxdBWb5Cn2tCO-XdRL"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "GgsrNgrDtR+"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1005077960"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "gkIM4rY5pwGgE2rkcBSBSp9/5DFLGou7OyrTNnRgjmWFXXl7Rw3Vg54P/40jeM+Pxv1VY8JF3y46z75jiyG2Vg=="
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 16 Feb 2022 15:24:19 GMT"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=3600, h3-29=\":443\"; ma=3600"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "50"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"446900580466057\",\n    \"num_processed_entries\": 2\n}"
+				}
+			]
+		},
+		{
+			"name": "3) View Uploads",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{system user access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"ViewContent\",\r\n            \"event_time\": {{unix date}},\r\n            \"event_id\": \"{{event id}}\",\r\n            \"user_data\": {\r\n                \"client_ip_address\": \"{{user ip}}\",\r\n                \"client_user_agent\": \"{{user browser}}\"                \r\n            },\r\n            \"action_source\": \"website\",\r\n            \"event_source_url\": \"{product landing page}}\"\r\n        }\r\n    ],\r\n    \"test_event_code\": \"{{server event test code}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{data set id}}/uploads",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{data set id}}",
+						"uploads"
+					]
+				},
+				"description": "**Offline Conversions API**:\n\n[https://developers.facebook.com/docs/marketing-api/offline-conversions](https://developers.facebook.com/docs/marketing-api/offline-conversions)\n\n### View Upload Stats\n\nA Business Manager admin or system user who created the offline event set can retrieve upload stats. Also any admin on the `ad_account` which is connected to the offline event set can read this data."
+			},
+			"response": [
+				{
+					"name": "[200] Ok, info about the uploads",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"ViewContent\",\r\n            \"event_time\": {{unix date}},\r\n            \"event_id\": \"{{event id}}\",\r\n            \"user_data\": {\r\n                \"client_ip_address\": \"{{user ip}}\",\r\n                \"client_user_agent\": \"{{user browser}}\"                \r\n            },\r\n            \"action_source\": \"website\",\r\n            \"event_source_url\": \"{product landing page}}\"\r\n        }\r\n    ],\r\n    \"test_event_code\": \"{{server event test code}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{data set id}}/uploads",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{data set id}}",
+								"uploads"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "ETag",
+							"value": "\"492f3919abb145381591a45ec18e6ee9ea99a36a\""
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "cross-origin"
+						},
+						{
+							"key": "x-app-usage",
+							"value": "{\"call_count\":0,\"total_cputime\":0,\"total_time\":0}"
+						},
+						{
+							"key": "x-fb-rlafr",
+							"value": "0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v12.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "private, no-cache, no-store, must-revalidate"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "AbSSSAwAIU_AhGwkbiWVfEK"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "HT2RlvgQQmE"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1005077960"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "V75Z6y5q9yTRXvOVcWCPLFs8lSL4p1tWrlxUJsLM5Qbk75sc4KKuAsBo60eoi5yUHqyrxf2jbw82qsN/+zKaow=="
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 16 Feb 2022 16:34:19 GMT"
+						},
+						{
+							"key": "Priority",
+							"value": "u=3,i"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=3600, h3-29=\":443\"; ma=3600"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "231"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": [\n        {\n            \"id\": \"5230565183629196\",\n            \"upload_tag\": \"\\\"store_data\\\"\",\n            \"is_excluded_for_lift\": false\n        }\n    ],\n    \"paging\": {\n        \"cursors\": {\n            \"before\": \"QVFIUlZASSVdGNTNsbF9uZAmVMaHA4cW9BUE5VRnU1eE1GQmozVjA3azFHbUE3WHFWQjBSdXNueURFT0ZAXZA1E0dVdOYkZA1YkNiTUdSa2d4X3ZAWZAWNnMEdhRHRn\",\n            \"after\": \"QVFIUlZASSVdGNTNsbF9uZAmVMaHA4cW9BUE5VRnU1eE1GQmozVjA3azFHbUE3WHFWQjBSdXNueURFT0ZAXZA1E0dVdOYkZA1YkNiTUdSa2d4X3ZAWZAWNnMEdhRHRn\"\n        }\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "3) View Upload Stats in a period",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{system user access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"ViewContent\",\r\n            \"event_time\": {{unix date}},\r\n            \"event_id\": \"{{event id}}\",\r\n            \"user_data\": {\r\n                \"client_ip_address\": \"{{user ip}}\",\r\n                \"client_user_agent\": \"{{user browser}}\"                \r\n            },\r\n            \"action_source\": \"website\",\r\n            \"event_source_url\": \"{product landing page}}\"\r\n        }\r\n    ],\r\n    \"test_event_code\": \"{{server event test code}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{data set id}}/stats?start=1644027600&end=1644937200",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{data set id}}",
+						"stats"
+					],
+					"query": [
+						{
+							"key": "start",
+							"value": "1644027600"
+						},
+						{
+							"key": "end",
+							"value": "1644937200"
+						}
+					]
+				},
+				"description": "**Offline Conversions API**:\n\n[https://developers.facebook.com/docs/marketing-api/offline-conversions](https://developers.facebook.com/docs/marketing-api/offline-conversions)\n\nView daily breakdowns of offline events in `Offline Events Manager` in Business Manager. For more precise breakdowns, make this call.\n\nRef.: [https://developers.facebook.com/docs/marketing-api/offline-conversions#event-upload-stats](https://developers.facebook.com/docs/marketing-api/offline-conversions#event-upload-stats)"
+			},
+			"response": [
+				{
+					"name": "[200] - Ok, count per event",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"ViewContent\",\r\n            \"event_time\": {{unix date}},\r\n            \"event_id\": \"{{event id}}\",\r\n            \"user_data\": {\r\n                \"client_ip_address\": \"{{user ip}}\",\r\n                \"client_user_agent\": \"{{user browser}}\"                \r\n            },\r\n            \"action_source\": \"website\",\r\n            \"event_source_url\": \"{product landing page}}\"\r\n        }\r\n    ],\r\n    \"test_event_code\": \"{{server event test code}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{data set id}}/stats?start=1644027600&end=1644937200",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{data set id}}",
+								"stats"
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "1644027600"
+								},
+								{
+									"key": "end",
+									"value": "1644937200"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "ETag",
+							"value": "\"84aed08c67d1275a1487e211c70035a30ffbf7a8\""
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "x-business-use-case-usage",
+							"value": "{\"446900580466057\":[{\"type\":\"ads_management\",\"call_count\":4,\"total_cputime\":3,\"total_time\":2,\"estimated_time_to_regain_access\":0}]}"
+						},
+						{
+							"key": "x-fb-rlafr",
+							"value": "0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v12.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "private, no-cache, no-store, must-revalidate"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "A7Izx2H7MCyL7rQwDetd_Po"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "FsklLlXFdi9"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1005077960"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "u0fLtNrg/r7jgJPe0VXBz7OjcMOcfSZLTHF4igKsm01M5BkpBilkXup/CGgqz7P9MfwhQqq1KEK0KWP9zcX5Cw=="
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 16 Feb 2022 16:58:00 GMT"
+						},
+						{
+							"key": "Priority",
+							"value": "u=3,i"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=3600, h3-29=\":443\"; ma=3600"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "719"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": [\n        {\n            \"count\": 0,\n            \"event\": \"AddPaymentInfo\",\n            \"time\": 1644134400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddToCart\",\n            \"time\": 1644134400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddToWishlist\",\n            \"time\": 1644134400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"CompleteRegistration\",\n            \"time\": 1644134400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Contact\",\n            \"time\": 1644134400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"CustomizeProduct\",\n            \"time\": 1644134400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Donate\",\n            \"time\": 1644134400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"FindLocation\",\n            \"time\": 1644134400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"InitiateCheckout\",\n            \"time\": 1644134400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Lead\",\n            \"time\": 1644134400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Other\",\n            \"time\": 1644134400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Purchase\",\n            \"time\": 1644134400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Schedule\",\n            \"time\": 1644134400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Search\",\n            \"time\": 1644134400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"StartTrial\",\n            \"time\": 1644134400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"SubmitApplication\",\n            \"time\": 1644134400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Subscribe\",\n            \"time\": 1644134400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"ViewContent\",\n            \"time\": 1644134400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddPaymentInfo\",\n            \"time\": 1644220800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddToCart\",\n            \"time\": 1644220800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddToWishlist\",\n            \"time\": 1644220800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"CompleteRegistration\",\n            \"time\": 1644220800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Contact\",\n            \"time\": 1644220800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"CustomizeProduct\",\n            \"time\": 1644220800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Donate\",\n            \"time\": 1644220800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"FindLocation\",\n            \"time\": 1644220800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"InitiateCheckout\",\n            \"time\": 1644220800\n        },\n        {\n            \"count\": 2,\n            \"event\": \"Lead\",\n            \"time\": 1644220800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Other\",\n            \"time\": 1644220800\n        },\n        {\n            \"count\": 4,\n            \"event\": \"Purchase\",\n            \"time\": 1644220800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Schedule\",\n            \"time\": 1644220800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Search\",\n            \"time\": 1644220800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"StartTrial\",\n            \"time\": 1644220800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"SubmitApplication\",\n            \"time\": 1644220800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Subscribe\",\n            \"time\": 1644220800\n        },\n        {\n            \"count\": 1,\n            \"event\": \"ViewContent\",\n            \"time\": 1644220800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddPaymentInfo\",\n            \"time\": 1644307200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddToCart\",\n            \"time\": 1644307200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddToWishlist\",\n            \"time\": 1644307200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"CompleteRegistration\",\n            \"time\": 1644307200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Contact\",\n            \"time\": 1644307200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"CustomizeProduct\",\n            \"time\": 1644307200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Donate\",\n            \"time\": 1644307200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"FindLocation\",\n            \"time\": 1644307200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"InitiateCheckout\",\n            \"time\": 1644307200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Lead\",\n            \"time\": 1644307200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Other\",\n            \"time\": 1644307200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Purchase\",\n            \"time\": 1644307200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Schedule\",\n            \"time\": 1644307200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Search\",\n            \"time\": 1644307200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"StartTrial\",\n            \"time\": 1644307200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"SubmitApplication\",\n            \"time\": 1644307200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Subscribe\",\n            \"time\": 1644307200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"ViewContent\",\n            \"time\": 1644307200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddPaymentInfo\",\n            \"time\": 1644393600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddToCart\",\n            \"time\": 1644393600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddToWishlist\",\n            \"time\": 1644393600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"CompleteRegistration\",\n            \"time\": 1644393600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Contact\",\n            \"time\": 1644393600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"CustomizeProduct\",\n            \"time\": 1644393600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Donate\",\n            \"time\": 1644393600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"FindLocation\",\n            \"time\": 1644393600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"InitiateCheckout\",\n            \"time\": 1644393600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Lead\",\n            \"time\": 1644393600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Other\",\n            \"time\": 1644393600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Purchase\",\n            \"time\": 1644393600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Schedule\",\n            \"time\": 1644393600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Search\",\n            \"time\": 1644393600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"StartTrial\",\n            \"time\": 1644393600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"SubmitApplication\",\n            \"time\": 1644393600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Subscribe\",\n            \"time\": 1644393600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"ViewContent\",\n            \"time\": 1644393600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddPaymentInfo\",\n            \"time\": 1644480000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddToCart\",\n            \"time\": 1644480000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddToWishlist\",\n            \"time\": 1644480000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"CompleteRegistration\",\n            \"time\": 1644480000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Contact\",\n            \"time\": 1644480000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"CustomizeProduct\",\n            \"time\": 1644480000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Donate\",\n            \"time\": 1644480000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"FindLocation\",\n            \"time\": 1644480000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"InitiateCheckout\",\n            \"time\": 1644480000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Lead\",\n            \"time\": 1644480000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Other\",\n            \"time\": 1644480000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Purchase\",\n            \"time\": 1644480000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Schedule\",\n            \"time\": 1644480000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Search\",\n            \"time\": 1644480000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"StartTrial\",\n            \"time\": 1644480000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"SubmitApplication\",\n            \"time\": 1644480000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Subscribe\",\n            \"time\": 1644480000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"ViewContent\",\n            \"time\": 1644480000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddPaymentInfo\",\n            \"time\": 1644566400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddToCart\",\n            \"time\": 1644566400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddToWishlist\",\n            \"time\": 1644566400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"CompleteRegistration\",\n            \"time\": 1644566400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Contact\",\n            \"time\": 1644566400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"CustomizeProduct\",\n            \"time\": 1644566400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Donate\",\n            \"time\": 1644566400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"FindLocation\",\n            \"time\": 1644566400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"InitiateCheckout\",\n            \"time\": 1644566400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Lead\",\n            \"time\": 1644566400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Other\",\n            \"time\": 1644566400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Purchase\",\n            \"time\": 1644566400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Schedule\",\n            \"time\": 1644566400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Search\",\n            \"time\": 1644566400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"StartTrial\",\n            \"time\": 1644566400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"SubmitApplication\",\n            \"time\": 1644566400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Subscribe\",\n            \"time\": 1644566400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"ViewContent\",\n            \"time\": 1644566400\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddPaymentInfo\",\n            \"time\": 1644652800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddToCart\",\n            \"time\": 1644652800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddToWishlist\",\n            \"time\": 1644652800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"CompleteRegistration\",\n            \"time\": 1644652800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Contact\",\n            \"time\": 1644652800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"CustomizeProduct\",\n            \"time\": 1644652800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Donate\",\n            \"time\": 1644652800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"FindLocation\",\n            \"time\": 1644652800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"InitiateCheckout\",\n            \"time\": 1644652800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Lead\",\n            \"time\": 1644652800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Other\",\n            \"time\": 1644652800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Purchase\",\n            \"time\": 1644652800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Schedule\",\n            \"time\": 1644652800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Search\",\n            \"time\": 1644652800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"StartTrial\",\n            \"time\": 1644652800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"SubmitApplication\",\n            \"time\": 1644652800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Subscribe\",\n            \"time\": 1644652800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"ViewContent\",\n            \"time\": 1644652800\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddPaymentInfo\",\n            \"time\": 1644739200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddToCart\",\n            \"time\": 1644739200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddToWishlist\",\n            \"time\": 1644739200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"CompleteRegistration\",\n            \"time\": 1644739200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Contact\",\n            \"time\": 1644739200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"CustomizeProduct\",\n            \"time\": 1644739200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Donate\",\n            \"time\": 1644739200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"FindLocation\",\n            \"time\": 1644739200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"InitiateCheckout\",\n            \"time\": 1644739200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Lead\",\n            \"time\": 1644739200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Other\",\n            \"time\": 1644739200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Purchase\",\n            \"time\": 1644739200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Schedule\",\n            \"time\": 1644739200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Search\",\n            \"time\": 1644739200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"StartTrial\",\n            \"time\": 1644739200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"SubmitApplication\",\n            \"time\": 1644739200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Subscribe\",\n            \"time\": 1644739200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"ViewContent\",\n            \"time\": 1644739200\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddPaymentInfo\",\n            \"time\": 1644825600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddToCart\",\n            \"time\": 1644825600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddToWishlist\",\n            \"time\": 1644825600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"CompleteRegistration\",\n            \"time\": 1644825600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Contact\",\n            \"time\": 1644825600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"CustomizeProduct\",\n            \"time\": 1644825600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Donate\",\n            \"time\": 1644825600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"FindLocation\",\n            \"time\": 1644825600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"InitiateCheckout\",\n            \"time\": 1644825600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Lead\",\n            \"time\": 1644825600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Other\",\n            \"time\": 1644825600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Purchase\",\n            \"time\": 1644825600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Schedule\",\n            \"time\": 1644825600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Search\",\n            \"time\": 1644825600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"StartTrial\",\n            \"time\": 1644825600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"SubmitApplication\",\n            \"time\": 1644825600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Subscribe\",\n            \"time\": 1644825600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"ViewContent\",\n            \"time\": 1644825600\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddPaymentInfo\",\n            \"time\": 1644912000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddToCart\",\n            \"time\": 1644912000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"AddToWishlist\",\n            \"time\": 1644912000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"CompleteRegistration\",\n            \"time\": 1644912000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Contact\",\n            \"time\": 1644912000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"CustomizeProduct\",\n            \"time\": 1644912000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Donate\",\n            \"time\": 1644912000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"FindLocation\",\n            \"time\": 1644912000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"InitiateCheckout\",\n            \"time\": 1644912000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Lead\",\n            \"time\": 1644912000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Other\",\n            \"time\": 1644912000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Purchase\",\n            \"time\": 1644912000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Schedule\",\n            \"time\": 1644912000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Search\",\n            \"time\": 1644912000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"StartTrial\",\n            \"time\": 1644912000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"SubmitApplication\",\n            \"time\": 1644912000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"Subscribe\",\n            \"time\": 1644912000\n        },\n        {\n            \"count\": 0,\n            \"event\": \"ViewContent\",\n            \"time\": 1644912000\n        }\n    ]\n}"
+				}
+			]
+		}
+	]
+}
