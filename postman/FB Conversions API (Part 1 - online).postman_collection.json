@@ -2,7 +2,8 @@
 	"info": {
 		"_postman_id": "92c383f4-9694-495d-ab20-6b26421774a3",
 		"name": "FB Conversions API (Part 1 - online)",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1848890"
 	},
 	"item": [
 		{
@@ -804,6 +805,48 @@
 					"body": "{\n    \"events_received\": 1,\n    \"messages\": [],\n    \"fbtrace_id\": \"AhzFtQJRpcKhTrstxdTlhg2\"\n}"
 				}
 			]
+		},
+		{
+			"name": "[CAPI-CTWA] Measuring with ctwa_clid",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{system user access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"action_source\": \"business_messaging\",\r\n\r\n            \"event_name\": \"Purchase\",\r\n            \"event_time\": {{unix date}},\r\n\r\n            \"custom_data\": {\r\n                \"currency\": \"USD\",\r\n                \"value\": 100\r\n            },\r\n\r\n            \"messaging_channel\": \"whatsapp\",\r\n\r\n            \"user_data\": {\r\n               \"ctwa_clid\": \"ARCZDicx2yKOqMNCXfi0mAUvyrVhhjlRWlt_9pGR1srWWUHfBIDHLc1jy4j96lDrIInIUyzwsxOaeDWX-8QQ8CFHY9A\",\r\n                \"page_id\": {{page id}}\r\n            }\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{dataset id}}/events",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{dataset id}}",
+						"events"
+					]
+				},
+				"description": "**\\[DEVDOCS\\] CAPI-CTWA**  \n[https://developers.facebook.com/docs/marketing-api/conversions-api/business-messaging](https://developers.facebook.com/docs/marketing-api/conversions-api/business-messaging)\n\n#### **In short, the way it works is:**\n\n1. User sees a CTWA ad on Facebook/Instagram from a given page.\n2. User clicks on the ad and sends a message. In that moment, we create a new identifier (**ctwa_clid**) based on the user ID, **page ID** and time. This identifier is then encrypted by Meta (WhatsApp servers are not able to open it).\n3. We expose this identifier on the WhatsApp Business API webhook for incoming messages, **under referral object**.\n4. When the business identifies a conversion from that conversation thread, it will be able to report a business outcome along with this identifier **under user data** (this is the only personal identifier we support for CTWA measurement).\n    \n\n- `messaging_channel`: to inform in which messaging channel it happened, as Messenger and Instagram Direct are also supported;"
+			},
+			"response": []
 		}
 	]
 }

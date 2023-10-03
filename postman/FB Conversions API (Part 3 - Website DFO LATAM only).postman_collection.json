@@ -1,0 +1,171 @@
+{
+	"info": {
+		"_postman_id": "16cdcba9-6551-4667-a4b6-2393081d7cd4",
+		"name": "FB Conversions API (Part 3 - \"Website DFO LATAM only\")",
+		"description": "[https://fb.workplace.com/notes/1145543549575197](https://fb.workplace.com/notes/1145543549575197)\n\nSeção \"Website Conversions\"",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1848890"
+	},
+	"item": [
+		{
+			"name": "[latam only] 1) Posting a Deep-Funnel Event via Website",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{system user access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"LeadQualified\",\r\n            \"event_time\": {{unix date}},\r\n\r\n            \"action_source\": \"website\",\r\n            \"event_source_url\": \"{{thank you page}}\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ],\r\n\r\n                \"client_ip_address\": \"{{user ip}}\",\r\n                \"client_user_agent\": \"{{user browser}}\",\r\n                \r\n                \"fbc\": \"{{fbc}}\",\r\n                \"fbp\": \"{{fbp}}\"\r\n            }\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{pixel id}}/events",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{pixel id}}",
+						"events"
+					]
+				},
+				"description": "For advertisers that run Website Conversions campaigns optimizing towards an event that happens on a website but they are interested in optimizing the campaigns towards a deeper event that happens after the website event and not in their website, there's a **hack** that they can test: send the offline event as if it happened on the website through the Conversions API so they can use it to optimize the Website Conversion campaigns\n\n**Requirements and Best Practices:**\n\n*   The offline event must have a conversion window of up to 7 days after the ad impression\n*   There's a higher chance for performance improvement if they offline event happens up to 1 day after the website event\n    \n\nThis is an example of how the offline event (named as LeadQualified) should be shared:\n\n# [Server Event Parameters](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/server-event/)\n\nWe can split the event parameters into two types: event information and customer information. The event information is related to the event itself while the customer information is related to the person that triggered the action represented by the event.\n\nThe required **event parameters** are:\n\n*   event name\n*   event time\n*   action source\n    *   this must be set as \"website\" since the event happens on the website\n*   event source url\n    *   only required if the \"action_source\" is website, which is the case\n    *   it can be set as the url of the page where the website event happened\n\nFor the [customer information](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/customer-information-parameters/), at least one information is required to be shared under the user_data parameter. There are two type of information that can be shared:\n\n*   personal identifiable information (PII). They must be hashed using the SHA256 algorithm before making the API call. E.g:\n    *   email\n    *   telephone\n    *   first name\n    *   last name\n    *   zip code\n*   information from the browser. They must **not** be hashed before sending making the API call. **For this case, although the event being shared didn't happen on the website, it will be passed as it was. So you should get copy these information from the website event that happened before this one**. Eg:\n    *   user agent\n        *   required when the action_source is set as \"website\", which is the case.\n    *   ip address\n    *   facebook click id cookie (fbc)\n    *   browser id cookie (fbp)\n\nYou can find the full list of information that can be passed [here](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/customer-information-parameters/). The ones listed above are the most effective and highly recommended\n\n## Deduplication\n\nSince this event didn't happened on a website, it is a server only event. Therefore there's no need to worry about [deduplication](https://developers.facebook.com/docs/marketing-api/conversions-api/deduplicate-pixel-and-server-events). That's why the event id parameter does not need to be sent."
+			},
+			"response": [
+				{
+					"name": "[200] Ok - one event received.",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"LeadQualified\",\r\n            \"event_time\": {{unix date}},\r\n\r\n            \"action_source\": \"website\",\r\n            \"event_source_url\": \"{{thank you page}}\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ],\r\n\r\n                \"client_ip_address\": \"{{user ip}}\",\r\n                \"client_user_agent\": \"{{user browser}}\",\r\n                \r\n                \"fbc\": \"{{fbc}}\",\r\n                \"fbp\": \"{{fbp}}\"\r\n            }\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{pixel id}}/events",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{pixel id}}",
+								"events"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "x-ad-account-usage",
+							"value": "{\"acc_id_util_pct\":0}"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "cross-origin"
+						},
+						{
+							"key": "x-app-usage",
+							"value": "{\"call_count\":0,\"total_cputime\":0,\"total_time\":0}"
+						},
+						{
+							"key": "x-fb-rlafr",
+							"value": "0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v12.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "private, no-cache, no-store, must-revalidate"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "AUpJZFEF2WvB9Rwtp1rCOFm"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "F7f22wRX5u9"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1005299463"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "La3+pLr4gbY0ZBSQ+U1UwAYCJ6rM9DBLpj1L5ghigkBSGMxN1uxApD20Jjau8+IMPorqfgYSS87+SpY7Nn1zpA=="
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 05 Apr 2022 18:24:10 GMT"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "74"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"events_received\": 1,\n    \"messages\": [],\n    \"fbtrace_id\": \"AUpJZFEF2WvB9Rwtp1rCOFm\"\n}"
+				}
+			]
+		}
+	]
+}
