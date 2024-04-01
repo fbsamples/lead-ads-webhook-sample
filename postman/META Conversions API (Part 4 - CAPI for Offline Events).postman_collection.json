@@ -1,0 +1,1117 @@
+{
+	"info": {
+		"_postman_id": "98f54c44-e846-4ecd-9020-721178a23716",
+		"name": "META Conversions API (Part 4 - CAPI for Offline Events)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1848890"
+	},
+	"item": [
+		{
+			"name": "1) checking Consolidated Dataset",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{meta app user access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{dataset id}}/?fields=is_consolidated_container",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{dataset id}}",
+						""
+					],
+					"query": [
+						{
+							"key": "fields",
+							"value": "is_consolidated_container"
+						}
+					]
+				},
+				"description": "# CAPI [Get Started](https://developers.facebook.com/docs/marketing-api/conversions-api/get-started)\n\n## Datasets\n\nYou can make the `GET` call to [https://graph.facebook.com/v16.0/{ads-pixel-id}/?fields=is_consolidated_container](https://developers.facebook.com/docs/marketing-api/reference/ads-pixel/) to detect if the advertiser’s dataset is consolidated and thus eligible for passing offline events using the Conversions API.\n\n### **Conversions API for Offline Events**:\n\n[https://developers.facebook.com/docs/marketing-api/conversions-api/offline-events](https://developers.facebook.com/docs/marketing-api/conversions-api/offline-events)\n\n#### ABOUT DATASETS\n\n> You can select the same dataset ID for website and offline event tracking. \n  \n\nRef.: [https://www.facebook.com/business/help/768703235046938?locale=en_US](https://www.facebook.com/business/help/768703235046938?locale=en_US)\n\n> Instead of having separate IDs for each of your integrations, you can have a single dataset ID to represent your website, app, offline and messaging event data. \n  \n\nRef.: [https://www.facebook.com/business/help/750785952855662?id=490360542427371](https://www.facebook.com/business/help/750785952855662?id=490360542427371)\n\n#### **Access Token Debugger**\n\n[https://developers.facebook.com/tools/debug/accesstoken/](https://developers.facebook.com/tools/debug/accesstoken/)"
+			},
+			"response": [
+				{
+					"name": "[400] Bad Request - Missing Permission - no token provided | token without right permissions",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{pixel id}}/?fields=is_consolidated_container",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{pixel id}}",
+								""
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "is_consolidated_container"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "cross-origin"
+						},
+						{
+							"key": "x-app-usage",
+							"value": "{\"call_count\":0,\"total_cputime\":0,\"total_time\":0}"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "WWW-Authenticate",
+							"value": "OAuth \"Facebook Platform\" \"invalid_request\" \"(#100) Missing Permission\""
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v16.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-store"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "ABd3_of1bUgdE-c837seUDt"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "FIVInCqrulN"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1011279222"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "aw3fhEPhI/LvMMsYkKEnskzg6ltkNOw1N/IFmT8DPRz87Xo11xT/muR1+oRASfpKMkX5xpfSxQcjcLtMG3NBTQ=="
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 07 Feb 2024 17:41:44 GMT"
+						},
+						{
+							"key": "Proxy-Status",
+							"value": "http_request_error; e_clientaddr=\"AcIDs7Dte743Anx0tj_0ZRg3JO8lz-jNt7WHiQhw4FROWRfWPUIHFPQ5CIYJsQPrUgOB6tePKOKDkp9nbbYaAm-V0uEmQy3nUg2bl7hmCf5aYN-u7Q\"; e_fb_vipport=\"AcJ68B3_3g0sB4QrZBkjkKjvtEul9GLw6_abXaNpuFt7nrVHb7R_4GKBS43v\"; e_upip=\"AcL3UULiMjXKWmndZ6x7RLMBr4SLUGxi8OeVQ3_3z4_zPZ0JLgjIvHRa3x1lKwl5j9krJT2dAAn_JGUbgzQgQGTei83vbnNz7io\"; e_fb_hostheader=\"AcKM9zRmzRkK10EHiL4S495CmZBzITFNVHyRmiHsJF33xKfaZqgm3yw8LZ7i2zGWDV_hwlvUzLyuV3kr\"; e_fb_vipaddr=\"AcJC7eGPTwELypHyJIBjDcmhmi99V2fIVbII49Z5xvJqhMy98jWbm8IuY4839KG1rcQiGyLNDNrRW3qyJzXpKnQlskzGGmqFPRm6\"; e_fb_requesthandler=\"AcLYVbavpvIV8Ef1MTY8x4olxeRxCmjrKH2VTKhOJ13xPyOgUFDe7SPHsz0mqsPXEdURt1hoowplBqgWkR8iE4U\"; e_fb_builduser=\"AcLVxZe-ZrHiHh7H4LY2IjXgbZkM0TzDcy9XL--MFlxcDzN1R8PKorZFUY7SWD77Rlc\"; e_fb_binaryversion=\"AcIlZ6Mvz89TIU1n6wFPcl-KnAWFBJt5CD49zcq3xFIJEZIrWvo09n1aAUT9KVM8zN02Smn8NMvPGNF5ctj0WKKOpOjhkBeZfEk\"; e_proxy=\"AcIHuf58IOstmZFl2vpEjLAxYd1B26I5icAk2l2ZXAr7Rw182ypFLHPulPXLxA3edby7xVN9zbfxyDLC_iGk\", http_request_error; e_clientaddr=\"AcJwhraFZI5TBGdcMAu_o1phsNewNj0mZfmWf9cp9b-CJLmZ49jX3w7VwLWWAyvlFEJkddr08pJE-XDKdA\"; e_fb_vipport=\"AcKfYgHooYGRLGfgWiAmXlfNf-4tTk6qepdfPF-GGSC2DW99dxiK4vzTprDJ\"; e_upip=\"AcKl_6m4trtjy6e374L1HhCAuxv_6tlnkSjJxCdBFFsRgxnIYzagIrLczShlfMse6OEE4-FSLVVmVol43_A2nsWpLe7S7r7rDhfG\"; e_fb_hostheader=\"AcLdsmPTHdYBM2YyvdLWSXqUW2UVhStiaqwlsvNvL97YKfHNTdliN2tnuCss_g0rx_pFch7rn3HiQ2rR\"; e_fb_vipaddr=\"AcJV1MavG9Bjrz_8jc34IU7-m8vOdHwRCB9WRIkqdj-3infrpaXG4SShCsuWjiH5FOhydkjyjqI\"; e_fb_requesthandler=\"AcKpQwiwlo8vgp-9Wz9AclJxoCIysk9xeo5fRBlSCXhv6-njztlhuc6K1Konah7edaWc_ImhNZD3_DqYMzERwmg\"; e_fb_builduser=\"AcL6Xe7MTJ-NpSLjuxa5m0RJ3HXFPzq8HeXbEbaMm_WKCee6Bsb_YNLm_VK-7i9GTUg\"; e_fb_binaryversion=\"AcKdos3F3Uay1iQafJTG-LU_vGPFAw_57HYMNL1JmLAiKcKN2w9yEBMI7DDxJzCBl-VCX2U-5Rj7ISdl99xEmfcjsEOcIqc9vvs\"; e_proxy=\"AcKfzwos2CgyDapM7DknV9-ZF6hHtavQc-JGI4dfk00V1T43mSOugR1OKlGG8MPoBmc9NYuVMnwHqUQ\""
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=86400"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "123"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": {\n        \"message\": \"(#100) Missing Permission\",\n        \"type\": \"OAuthException\",\n        \"code\": 100,\n        \"fbtrace_id\": \"ABd3_of1bUgdE-c837seUDt\"\n    }\n}"
+				},
+				{
+					"name": "[200] Ok - with a 'meta app user token' with 'ads_management' and 'business_management' permissions",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{pixel id}}/?fields=is_consolidated_container",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{pixel id}}",
+								""
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "is_consolidated_container"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "ETag",
+							"value": "\"a46111ad4c4733f5e810e8cd99889305f96b86d9\""
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "x-business-use-case-usage",
+							"value": "{\"471896217364766\":[{\"type\":\"ads_management\",\"call_count\":1,\"total_cputime\":1,\"total_time\":1,\"estimated_time_to_regain_access\":0,\"ads_api_access_tier\":\"development_access\"}]}"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v19.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "private, no-cache, no-store, must-revalidate"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "Alk5aeadYWICKRu2PpgOtQf"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "EifMPiWNGrH"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1011678637"
+						},
+						{
+							"key": "x-stack",
+							"value": "www"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "poR24j2+TOwjfRCMN20XxAvY8RtkdEyQa9pLYawzRl5BoCDDxsA2ds24nU+zwDpLFWSRZ90W+/WDs7cZByZw5Q=="
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 27 Feb 2024 12:57:48 GMT"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=86400"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "57"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"is_consolidated_container\": true,\n    \"id\": \"471896217364766\"\n}"
+				},
+				{
+					"name": "[401] Unauthorized - expired token",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{dataset id}}/?fields=is_consolidated_container",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{dataset id}}",
+								""
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "is_consolidated_container"
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "cross-origin"
+						},
+						{
+							"key": "x-app-usage",
+							"value": "{\"call_count\":0,\"total_cputime\":0,\"total_time\":0}"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "WWW-Authenticate",
+							"value": "OAuth \"Facebook Platform\" \"invalid_token\" \"Error validating access token: Session has expired on Tuesday, 27-Feb-24 06:00:00 PST. The current time is Monday, 01-Apr-24 12:41:12 PDT.\""
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-store"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "AudRNQAOPsS57MQBjcsmLKc"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "CjsmY8e0KK7"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1012447370"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "RzkcKsL0RxNvWAYaom3UqBWvoNhgSUNuzGC9L4dAy7al/HBMKl8KHjxch0kyVF+O7EK7E4QbHkN3GPJQ54V4vg=="
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 01 Apr 2024 19:41:12 GMT"
+						},
+						{
+							"key": "Proxy-Status",
+							"value": "http_request_error; e_fb_configversion=\"AcLHuRJd8FwE_UIcH4a6ouGBLunN4nKdABKpcaVw10cZnse_HjjWFNiu4aSl7A\"; e_clientaddr=\"AcI7MMuve8Ov626KvDg2DCFOhBgvQvKOiH8TUdhdhuBRoocjo1aTYIx2pN1b5p-XdjguBliWWBKkZnK2dMG-RDipN9usjYClp582H62bNmq_TsAkLw\"; e_fb_vipport=\"AcJy5cH7_16wAp7gbjZjYjZTk6OqvIDcEOulJ_K6LkVEs52oS346Xf-j8WSx\"; e_upip=\"AcLgW-_iwmSb5HFhxExxNIN0ByJI2BjZ9TC_HN_jPU9Qu1VZfjUPLGpaetK6tHz7ohBhok8bHd5dn1sCxrpVtC2kRGsYcNo5vQ\"; e_fb_requestsequencenumber=\"AcLtTzksqjajBo847sn6X72rKYkmKP8zMUJoeDXVqGBgVZCxPn2eU7BfOGaR\"; e_fb_hostheader=\"AcJWvx98wk783RjnVCHRU-f1jihE09JcHE6UpMKUle0A779UxmC14IB6OYGc0YOPWn8UOvL9RPnDVyUg\"; e_fb_vipaddr=\"AcLquEv5zNQoi1HDQqjokAsFoAjUyZ1MtaZq7Gks72lggkJCm04i-G4LJCY77pLAQv-xI2CcqLxgQ0i7UxgylKMrLuLAxPYGfg\"; e_fb_requesthandler=\"AcJHHucRRr9V-xHXdMpnZmUV_I_k_1bukRdtBRLpUGp5ATGXSlKkFOrW83d67b2ZAv3-GH9oHvI\"; e_fb_requesttime=\"AcIhO-LGW3uo063nQtV0fRrf3t3jtKL1RvJtClsUo9-Q65MQx7sdEwuNR1Ydpx5fJbVxwm6fcw\"; e_fb_builduser=\"AcIxuqmAaD4YmqNlL_5P3nK4kl42XL_yhfFgO7SSmMC4jgScJhbwmQ1x5tp3NpPbmPc\"; e_fb_httpversion=\"AcLpMB-B9UnXum7C3fWfNwAytpJ1GAQLANC2MzmxNLUDNtRVjEX6oKdKCVHk\"; e_fb_binaryversion=\"AcLF623fZ2BfRUme6A-lcEW3y5mfIB4AQL0aN2uJcP2-ugWdyUoZhIAY-yXcy-3LzTIN3kUmUI8ETNS9Khotf8P_C2MBkal36nM\"; e_proxy=\"AcJjCWj_hs-LKPkvqpJWvAOlEcFbT371O2WMPfdcYHRVVu9cQEkQPYvgzjwtGQyAYXNe3IsEURMGifCrc9gz\", http_request_error; e_fb_configversion=\"AcLfsIKrBh3RPecb3orDXDP_Wtqo8_5xmyUEWvoixfgRn52-4-hgfK5MLRktMQ\"; e_clientaddr=\"AcLEqRs63M-3eIDKojVpq_Kc3UWDZak_q15j8QgOkf5ralrVUOPGw3IPNVGRzhhWEwBzhaBYm7h-FMAm3Dye\"; e_fb_vipport=\"AcJ1UTxkokswMj9voN1mS0mxjDL5Sq_Y4aDJyog-KwkYgqQQSJxxMVSNMe3L\"; e_upip=\"AcKX6T6H49Q8lM9nVsv_z4r_iCa8fcOlXsHTYFGW4wmEcobuohT0H82gsqxfQWlhxFp3VA3JVK4V1i731R6JEPONe7nfQhefSA\"; e_fb_requestsequencenumber=\"AcKASPMYZrzg1jVX8wT7MzumxklbL1V6ne0PXSrDE09Hi31cuOlG_2Uijw\"; e_fb_hostheader=\"AcJMotrYizoI7gc-s-L_3GxKNfbO8aRUMBKcm6rK5yuSAOh6YN9P9AaO2hMG7SdNgjfHK1yhoAoofpqv\"; e_fb_vipaddr=\"AcKvhFvDufm6FJ46h8_i14dMvg2vptfGDOL3xyWQISXE-sQfTvmaTn6knU4d6j7JikTQVtQ\"; e_fb_requesthandler=\"AcIHDsi7wPUTGuT73R8SPYfrknD4NN3841kiV0pTYq38Hy1OcgtL04R4Ca7fVA-azP8S9FFW3Tc\"; e_fb_requesttime=\"AcLVJNmVD40jAWpHOJm2SiWMn7vVJrYKvJw0qO6_4xSmV9v976Xi3BiZKGCADm8TO9c3yUnFRQ\"; e_fb_builduser=\"AcL3ultI1-FBXAyOvX7-X7UmBSpYdWEI-9MR8Gadm4fMFnz-6yuZp8NVYCdSQEpn3iw\"; e_fb_httpversion=\"AcKeyovxJIEGlpA_hqVHoGdd4op8ec5zQSEnMNSMUOmoahIJNaHF6Kp0sVwR\"; e_fb_binaryversion=\"AcLlEplLuEC3_suaIDrGCJeBjFRtvM8wd0VbkZSFDw4EQv97kEc-pvI1pgLV2yKaJ4AIg_HD-t1E6HQEPTLzZEL-JMXJRgd4ZAQ\"; e_proxy=\"AcJSJPa4ybLE06C6lzPwDRTwsyvAtiH3kt3H9mRP_-IRanrUP4Z0f9FmWZm1m0ch_57dn4UuDqBURT8\""
+						},
+						{
+							"key": "X-FB-Connection-Quality",
+							"value": "EXCELLENT; q=0.9, rtt=11, rtx=0, c=10, mss=1392, tbw=3405, tp=-1, tpl=-1, uplat=192, ullat=0"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=86400"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "256"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": {\n        \"message\": \"Error validating access token: Session has expired on Tuesday, 27-Feb-24 06:00:00 PST. The current time is Monday, 01-Apr-24 12:41:12 PDT.\",\n        \"type\": \"OAuthException\",\n        \"code\": 190,\n        \"error_subcode\": 463,\n        \"fbtrace_id\": \"AudRNQAOPsS57MQBjcsmLKc\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "2) posting a Purchase event - physical store",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{capi access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"Purchase\",\r\n            \"event_time\": {{unix date}},\r\n\r\n            \"action_source\": \"physical_store\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ],\r\n\r\n                \"fn\": \"6915771be1c5aa0c886870b6951b03d7eafc121fea0e80a5ea83beb7c449f4ec\",\r\n                \"ln\": \"df2c1912d400356ed9992994130ef9f49bd2726880e04c0ede4d5c90a618f696\",\r\n                \"db\": \"01acdbf6ec7b4f478a225f1a246e5d6767eeab1a7ffa17f025265b5b94f40f0c\",\r\n\r\n                \"ct\": \"a188a64fb6b392833db7697673b3cc5df6d8409935e71588a3591218e0fd5e61\",\r\n                \"zip\": \"01c95cd051547f6d3efb1a079b0d44dd9da1d7f7a754a642ef72b74a1ee9b1ee\",\r\n                \"country\": \"885036a0da3dff3c3e05bc79bf49382b12bc5098514ed57ce0875aba1aa2c40d\",\r\n                \r\n                \"external_id\": \"007\"\r\n            },\r\n\r\n            \"custom_data\": {\r\n                \"currency\": \"brl\",\r\n                \"value\": 123.45,\r\n                \"contents\": [{\r\n                    \"id\": \"product123\",\r\n                    \"quantity\": 1\r\n                }],\r\n                \"order_id\": \"ATN10001\"\r\n            }\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{dataset id}}/events",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{dataset id}}",
+						"events"
+					]
+				},
+				"description": "# Sending Offline Events Using the Conversions API\n\nThe Conversions API (**CAPI**) is Meta’s recommended integration method for sending offline and physical store events to Meta for use in ad measurement, attribution, and targeting.\n\nRef.: [https://developers.facebook.com/docs/marketing-api/conversions-api/offline-events](https://developers.facebook.com/docs/marketing-api/conversions-api/offline-events)\n\n# Customer Information Parameters\n\nRef.: [https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/customer-information-parameters](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/customer-information-parameters)\n\n# Standard Parameters\n\nThis table lists all standard parameters users can send to Meta.\n\nRef.: [https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/custom-data](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/custom-data)"
+			},
+			"response": [
+				{
+					"name": "[200] Ok - event received, here is your receipt (fbtrace_id)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"Purchase\",\r\n            \"event_time\": {{unix date}},\r\n            \"event_id\": \"{{event id}}\",\r\n\r\n            \"action_source\": \"physical_store\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ],\r\n\r\n                \"fn\": \"6915771be1c5aa0c886870b6951b03d7eafc121fea0e80a5ea83beb7c449f4ec\",\r\n                \"ln\": \"df2c1912d400356ed9992994130ef9f49bd2726880e04c0ede4d5c90a618f696\",\r\n                \"db\": \"01acdbf6ec7b4f478a225f1a246e5d6767eeab1a7ffa17f025265b5b94f40f0c\",\r\n\r\n                \"ct\": \"a188a64fb6b392833db7697673b3cc5df6d8409935e71588a3591218e0fd5e61\",\r\n                \"zip\": \"01c95cd051547f6d3efb1a079b0d44dd9da1d7f7a754a642ef72b74a1ee9b1ee\",\r\n                \"country\": \"885036a0da3dff3c3e05bc79bf49382b12bc5098514ed57ce0875aba1aa2c40d\",\r\n                \r\n                \"external_id\": \"007\"\r\n            },\r\n\r\n            \"custom_data\": {\r\n                \"currency\": \"brl\",\r\n                \"value\": 123.45,\r\n                \"contents\": [{\r\n                    \"id\": \"product123\",\r\n                    \"quantity\": 1\r\n                }]\r\n            }\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{dataset id}}/events",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{dataset id}}",
+								"events"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "cross-origin"
+						},
+						{
+							"key": "x-app-usage",
+							"value": "{\"call_count\":0,\"total_cputime\":0,\"total_time\":0}"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v16.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "private, no-cache, no-store, must-revalidate"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "AYNkr3JrvtMRZuQJeBd90cs"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "HkbcAIZsfuu"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1011300474"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "RsqamhxB6zAZYZmb4UPgHFQeV/kSNSxRuqtWOdWQeGJJFiVcAX/Tp6rBvfnA2TWaV03mCkq+hUNI1jXUXdeN7w=="
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 08 Feb 2024 12:48:25 GMT"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=86400"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "74"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"events_received\": 1,\n    \"messages\": [],\n    \"fbtrace_id\": \"AYNkr3JrvtMRZuQJeBd90cs\"\n}"
+				},
+				{
+					"name": "[400] Bad Request - no access token provided",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"Purchase\",\r\n            \"event_time\": {{unix date}},\r\n            \"event_id\": \"{{event id}}\",\r\n\r\n            \"action_source\": \"physical_store\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ],\r\n\r\n                \"fn\": \"6915771be1c5aa0c886870b6951b03d7eafc121fea0e80a5ea83beb7c449f4ec\",\r\n                \"ln\": \"df2c1912d400356ed9992994130ef9f49bd2726880e04c0ede4d5c90a618f696\",\r\n                \"db\": \"01acdbf6ec7b4f478a225f1a246e5d6767eeab1a7ffa17f025265b5b94f40f0c\",\r\n\r\n                \"ct\": \"a188a64fb6b392833db7697673b3cc5df6d8409935e71588a3591218e0fd5e61\",\r\n                \"zip\": \"01c95cd051547f6d3efb1a079b0d44dd9da1d7f7a754a642ef72b74a1ee9b1ee\",\r\n                \"country\": \"885036a0da3dff3c3e05bc79bf49382b12bc5098514ed57ce0875aba1aa2c40d\",\r\n                \r\n                \"external_id\": \"007\"\r\n            },\r\n\r\n            \"custom_data\": {\r\n                \"currency\": \"brl\",\r\n                \"value\": 123.45,\r\n                \"contents\": [{\r\n                    \"id\": \"product123\",\r\n                    \"quantity\": 1\r\n                }]\r\n            }\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{dataset id}}/events",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{dataset id}}",
+								"events"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "WWW-Authenticate",
+							"value": "OAuth \"Facebook Platform\" \"invalid_request\" \"Unsupported post request. Object with ID '471896217364766' does not exist, cannot be loaded due to missing permissions, or does not support this operation. Please read the Graph API documentation at https://developers.facebook.com/docs/graph-api\""
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v16.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-store"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "AnK75BUD-MXyVGmDxRA7KNA"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "Gg9t2GzaWoQ"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1011301280"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "rBtrXmyzCnJB7m4BowhEbVMGzstI+8pHhNSpg3fdQgItS4iu+G+Z0S9YMNMvW8hhy7WB16J616ECeH733KvzFg=="
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 08 Feb 2024 12:50:50 GMT"
+						},
+						{
+							"key": "Proxy-Status",
+							"value": "http_request_error; e_clientaddr=\"AcKTtUT9QWZirJoVfjSLEeldfT4Su4SaPR8roTUc5BiePB9n7Ocd6GsPO6xZrmfSXngYUmFkMlK0pE9ZXYRBaJPa5RXMo47BYfC67MKgtz8cM3LrHg\"; e_fb_vipport=\"AcKwTTCT80GTILNFMkY7vgtU_PVLkaVIW9kyVIZGdzIGyQBGB_VXzDkPfyLp\"; e_upip=\"AcKTVSEj2AVLMUJYtf0lheC4onRXO9CnZ9ZlMR2DswTpvPYhb1wU_BEHmHhthQDsByYXstZxU5w8bKFFDOPmgpiAe52ArSdkAg\"; e_fb_hostheader=\"AcLAotPSmT_vPA-nBnqtZavpzQduQYvJmIzTEaq6nT3-1PiDLca3SDN2Mx8k0nf3_rXgLxttgxBMrPac\"; e_fb_vipaddr=\"AcKIBGDOlMN5YQOjVKCiHnKcIGpO9C-bFvAiL6pZ4Vjqz21NaOIN8hESbU5IOy1iKfwCDxYHWzd1xnwFWzfUqWcl-shsb6kQPQ\"; e_fb_requesthandler=\"AcLdlmTSck7PnhndH-GIMmC6R0NQ0y8KQegRKPnJhZ8kMGSOa24UOzCMuuvmZ_3Pj6NWeahMLZ4\"; e_fb_builduser=\"AcLARRw6MUhMGWuot8SmC2_uNDaLQQV2lQAXYDH7h-ybFc7fGkg16EjsIZ0y0kLnmGo\"; e_fb_binaryversion=\"AcJRGPHRQ5ztHFjRPQ0X9QDU21zLPpUXIE4FM5OiHnWaWbu6wMAdnYGRrFYK7i52V8w5Uwl2D78cg6T9hO1TYXqgPw-tUeWCEqw\"; e_proxy=\"AcIF3HvioJ4Bh0zff0sHhg94YVeL61ppXK1_NRUOsL3AlVdzOD--iR0J3B0yzXKBs7qEfYPA2HWYO_OozN1n\", http_request_error; e_clientaddr=\"AcLmIpEkdKr677AT6P3AQF6eLYmpA7MolGq1KXKncqqqryQx7fRiJ5BAjd1TQaqFOVweIaz8SUCyc-AmGw\"; e_fb_vipport=\"AcJGsd2uHxDtlXMUx4yUehJhPG8pTbp50qMjU2K7n75WrEy00db7Yp_5Xq64\"; e_upip=\"AcIHPV0mo5pGecVg9U4B00cKqE6dLzAC-_Zqj30zBoNQyoJtePBEBr5_kt5InQEO_cV6dhxM-8J2ddInwqf_qML2WrsFh3RJUA\"; e_fb_hostheader=\"AcIA-F0HfK-0nSqM9EiGlsJI2hxlhXXvy1m_jtaiJKgBclneQ7AAesmsetZwr_G1W1q5V4wC1jOk56-2\"; e_fb_vipaddr=\"AcKdE3FJxOxpshiVU928yKhEXLksmuY6r786hawF-lStko7FGoSOunYXpaWKCLFsocXh9gcHOxE\"; e_fb_requesthandler=\"AcLZlvZaVccVb2PQm8VyjmlYj5xI7-7ucPeZiM4qKANfR103cVrKoIl7uFBF9YA5cwYASJQs7gBH7uOoLQ93VDU\"; e_fb_builduser=\"AcIUIROE-PUgaRN8a8Rcp0fZU_dBuI6lPowg4FYQ1POLL7HaFiZOa6LOUSTnIT0yLZI\"; e_fb_binaryversion=\"AcL0UJVQAqwHfqPXpX1qvvQvsxA88zk0LTvnuuP4ZRRiL3TSMc3nLmqKy2P1LUYjXYMaBeeMKamOt6vuOfTgc2mj0tJI9s1FwKs\"; e_proxy=\"AcI3zPHbfqgbpFPrZ_fynBOTdNGpn4S0PqQbVmcT1UNk8BtaB3K-pIskHIGysV7pa31tHPqOWOevCA0\""
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=86400"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "262"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": {\n        \"message\": \"Unsupported post request. Object with ID '471896217364766' does not exist, cannot be loaded due to missing permissions, or does not support this operation. Please read the Graph API documentation at https://developers.facebook.com/docs/graph-api\",\n        \"type\": \"GraphMethodException\",\n        \"code\": 100,\n        \"error_subcode\": 33,\n        \"fbtrace_id\": \"AnK75BUD-MXyVGmDxRA7KNA\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "2) posting Purchase events - batch",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{capi access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"Purchase\",\r\n            \"event_time\": 1712000939,\r\n\r\n            \"action_source\": \"physical_store\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ],\r\n\r\n                \"fn\": \"6915771be1c5aa0c886870b6951b03d7eafc121fea0e80a5ea83beb7c449f4ec\",\r\n                \"ln\": \"df2c1912d400356ed9992994130ef9f49bd2726880e04c0ede4d5c90a618f696\",\r\n                \"db\": \"01acdbf6ec7b4f478a225f1a246e5d6767eeab1a7ffa17f025265b5b94f40f0c\",\r\n\r\n                \"ct\": \"a188a64fb6b392833db7697673b3cc5df6d8409935e71588a3591218e0fd5e61\",\r\n                \"zip\": \"01c95cd051547f6d3efb1a079b0d44dd9da1d7f7a754a642ef72b74a1ee9b1ee\",\r\n                \"country\": \"885036a0da3dff3c3e05bc79bf49382b12bc5098514ed57ce0875aba1aa2c40d\",\r\n                \r\n                \"external_id\": \"007\"\r\n            },\r\n\r\n            \"custom_data\": {\r\n                \"currency\": \"brl\",\r\n                \"value\": 100.99,\r\n                \"contents\": [{\r\n                    \"id\": \"product1\",\r\n                    \"quantity\": 2\r\n                }],\r\n                \"order_id\": \"13579\"\r\n            }\r\n        },\r\n        {\r\n            \"event_name\": \"Purchase\",\r\n            \"event_time\": 1711000939,\r\n\r\n            \"action_source\": \"physical_store\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ],\r\n\r\n                \"fn\": \"6915771be1c5aa0c886870b6951b03d7eafc121fea0e80a5ea83beb7c449f4ec\",\r\n                \"ln\": \"df2c1912d400356ed9992994130ef9f49bd2726880e04c0ede4d5c90a618f696\",\r\n                \"db\": \"01acdbf6ec7b4f478a225f1a246e5d6767eeab1a7ffa17f025265b5b94f40f0c\",\r\n\r\n                \"ct\": \"a188a64fb6b392833db7697673b3cc5df6d8409935e71588a3591218e0fd5e61\",\r\n                \"zip\": \"01c95cd051547f6d3efb1a079b0d44dd9da1d7f7a754a642ef72b74a1ee9b1ee\",\r\n                \"country\": \"885036a0da3dff3c3e05bc79bf49382b12bc5098514ed57ce0875aba1aa2c40d\",\r\n                \r\n                \"external_id\": \"007\"\r\n            },\r\n\r\n            \"custom_data\": {\r\n                \"currency\": \"brl\",\r\n                \"value\": 200.50,\r\n                \"contents\": [{\r\n                    \"id\": \"product2\",\r\n                    \"quantity\": 1\r\n                }],\r\n                \"order_id\": \"13580\"\r\n            }\r\n        },\r\n        {\r\n            \"event_name\": \"Purchase\",\r\n            \"event_time\": 1710000939,\r\n\r\n            \"action_source\": \"physical_store\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ],\r\n\r\n                \"fn\": \"6915771be1c5aa0c886870b6951b03d7eafc121fea0e80a5ea83beb7c449f4ec\",\r\n                \"ln\": \"df2c1912d400356ed9992994130ef9f49bd2726880e04c0ede4d5c90a618f696\",\r\n                \"db\": \"01acdbf6ec7b4f478a225f1a246e5d6767eeab1a7ffa17f025265b5b94f40f0c\",\r\n\r\n                \"ct\": \"a188a64fb6b392833db7697673b3cc5df6d8409935e71588a3591218e0fd5e61\",\r\n                \"zip\": \"01c95cd051547f6d3efb1a079b0d44dd9da1d7f7a754a642ef72b74a1ee9b1ee\",\r\n                \"country\": \"885036a0da3dff3c3e05bc79bf49382b12bc5098514ed57ce0875aba1aa2c40d\",\r\n                \r\n                \"external_id\": \"007\"\r\n            },\r\n\r\n            \"custom_data\": {\r\n                \"currency\": \"brl\",\r\n                \"value\": 200.50,\r\n                \"contents\": [{\r\n                    \"id\": \"product3\",\r\n                    \"quantity\": 3\r\n                }],\r\n                \"order_id\": \"13581\",\r\n                \"item_number\": \"1\"\r\n            }\r\n        },\r\n        {\r\n            \"event_name\": \"Purchase\",\r\n            \"event_time\": 1710000939,\r\n\r\n            \"action_source\": \"physical_store\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ],\r\n\r\n                \"fn\": \"6915771be1c5aa0c886870b6951b03d7eafc121fea0e80a5ea83beb7c449f4ec\",\r\n                \"ln\": \"df2c1912d400356ed9992994130ef9f49bd2726880e04c0ede4d5c90a618f696\",\r\n                \"db\": \"01acdbf6ec7b4f478a225f1a246e5d6767eeab1a7ffa17f025265b5b94f40f0c\",\r\n\r\n                \"ct\": \"a188a64fb6b392833db7697673b3cc5df6d8409935e71588a3591218e0fd5e61\",\r\n                \"zip\": \"01c95cd051547f6d3efb1a079b0d44dd9da1d7f7a754a642ef72b74a1ee9b1ee\",\r\n                \"country\": \"885036a0da3dff3c3e05bc79bf49382b12bc5098514ed57ce0875aba1aa2c40d\",\r\n                \r\n                \"external_id\": \"007\"\r\n            },\r\n\r\n            \"custom_data\": {\r\n                \"currency\": \"brl\",\r\n                \"value\": 100.00,\r\n                \"contents\": [{\r\n                    \"id\": \"product4\",\r\n                    \"quantity\": 10\r\n                }],\r\n                \"order_id\": \"13581\",\r\n                \"item_number\": \"2\"\r\n            }\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{dataset id}}/events",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{dataset id}}",
+						"events"
+					]
+				},
+				"description": "# Sending Offline Events Using the Conversions API\n\nThe Conversions API (**CAPI**) is Meta’s recommended integration method for sending offline and physical store events to Meta for use in ad measurement, attribution, and targeting.\n\nRef.: [https://developers.facebook.com/docs/marketing-api/conversions-api/offline-events](https://developers.facebook.com/docs/marketing-api/conversions-api/offline-events)\n\n# Customer Information Parameters\n\nRef.: [https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/customer-information-parameters](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/customer-information-parameters)\n\n# Standard Parameters\n\nThis table lists all standard parameters users can send to Meta.\n\nRef.: [https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/custom-data](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/custom-data)\n\n# Best practices for offline events data\n\n**Include an order ID field and enter a unique identifier for each transaction**\n\nRef.: [https://www.facebook.com/business/help/1798506233494677?id=565900110447546](https://www.facebook.com/business/help/1798506233494677?id=565900110447546)"
+			},
+			"response": [
+				{
+					"name": "[200] Ok - 4 events received, here is your receipt (fbtrace_id)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"Purchase\",\r\n            \"event_time\": 1712000939,\r\n\r\n            \"action_source\": \"physical_store\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ],\r\n\r\n                \"fn\": \"6915771be1c5aa0c886870b6951b03d7eafc121fea0e80a5ea83beb7c449f4ec\",\r\n                \"ln\": \"df2c1912d400356ed9992994130ef9f49bd2726880e04c0ede4d5c90a618f696\",\r\n                \"db\": \"01acdbf6ec7b4f478a225f1a246e5d6767eeab1a7ffa17f025265b5b94f40f0c\",\r\n\r\n                \"ct\": \"a188a64fb6b392833db7697673b3cc5df6d8409935e71588a3591218e0fd5e61\",\r\n                \"zip\": \"01c95cd051547f6d3efb1a079b0d44dd9da1d7f7a754a642ef72b74a1ee9b1ee\",\r\n                \"country\": \"885036a0da3dff3c3e05bc79bf49382b12bc5098514ed57ce0875aba1aa2c40d\",\r\n                \r\n                \"external_id\": \"007\"\r\n            },\r\n\r\n            \"custom_data\": {\r\n                \"currency\": \"brl\",\r\n                \"value\": 100.99,\r\n                \"contents\": [{\r\n                    \"id\": \"product1\",\r\n                    \"quantity\": 2\r\n                }],\r\n                \"order_id\": \"13579\"\r\n            }\r\n        },\r\n        {\r\n            \"event_name\": \"Purchase\",\r\n            \"event_time\": 1711000939,\r\n\r\n            \"action_source\": \"physical_store\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ],\r\n\r\n                \"fn\": \"6915771be1c5aa0c886870b6951b03d7eafc121fea0e80a5ea83beb7c449f4ec\",\r\n                \"ln\": \"df2c1912d400356ed9992994130ef9f49bd2726880e04c0ede4d5c90a618f696\",\r\n                \"db\": \"01acdbf6ec7b4f478a225f1a246e5d6767eeab1a7ffa17f025265b5b94f40f0c\",\r\n\r\n                \"ct\": \"a188a64fb6b392833db7697673b3cc5df6d8409935e71588a3591218e0fd5e61\",\r\n                \"zip\": \"01c95cd051547f6d3efb1a079b0d44dd9da1d7f7a754a642ef72b74a1ee9b1ee\",\r\n                \"country\": \"885036a0da3dff3c3e05bc79bf49382b12bc5098514ed57ce0875aba1aa2c40d\",\r\n                \r\n                \"external_id\": \"007\"\r\n            },\r\n\r\n            \"custom_data\": {\r\n                \"currency\": \"brl\",\r\n                \"value\": 200.50,\r\n                \"contents\": [{\r\n                    \"id\": \"product2\",\r\n                    \"quantity\": 1\r\n                }],\r\n                \"order_id\": \"13580\"\r\n            }\r\n        },\r\n        {\r\n            \"event_name\": \"Purchase\",\r\n            \"event_time\": 1710000939,\r\n\r\n            \"action_source\": \"physical_store\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ],\r\n\r\n                \"fn\": \"6915771be1c5aa0c886870b6951b03d7eafc121fea0e80a5ea83beb7c449f4ec\",\r\n                \"ln\": \"df2c1912d400356ed9992994130ef9f49bd2726880e04c0ede4d5c90a618f696\",\r\n                \"db\": \"01acdbf6ec7b4f478a225f1a246e5d6767eeab1a7ffa17f025265b5b94f40f0c\",\r\n\r\n                \"ct\": \"a188a64fb6b392833db7697673b3cc5df6d8409935e71588a3591218e0fd5e61\",\r\n                \"zip\": \"01c95cd051547f6d3efb1a079b0d44dd9da1d7f7a754a642ef72b74a1ee9b1ee\",\r\n                \"country\": \"885036a0da3dff3c3e05bc79bf49382b12bc5098514ed57ce0875aba1aa2c40d\",\r\n                \r\n                \"external_id\": \"007\"\r\n            },\r\n\r\n            \"custom_data\": {\r\n                \"currency\": \"brl\",\r\n                \"value\": 200.50,\r\n                \"contents\": [{\r\n                    \"id\": \"product3\",\r\n                    \"quantity\": 3\r\n                }],\r\n                \"order_id\": \"13581\",\r\n                \"item_number\": \"1\"\r\n            }\r\n        },\r\n        {\r\n            \"event_name\": \"Purchase\",\r\n            \"event_time\": 1710000939,\r\n\r\n            \"action_source\": \"physical_store\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ],\r\n\r\n                \"fn\": \"6915771be1c5aa0c886870b6951b03d7eafc121fea0e80a5ea83beb7c449f4ec\",\r\n                \"ln\": \"df2c1912d400356ed9992994130ef9f49bd2726880e04c0ede4d5c90a618f696\",\r\n                \"db\": \"01acdbf6ec7b4f478a225f1a246e5d6767eeab1a7ffa17f025265b5b94f40f0c\",\r\n\r\n                \"ct\": \"a188a64fb6b392833db7697673b3cc5df6d8409935e71588a3591218e0fd5e61\",\r\n                \"zip\": \"01c95cd051547f6d3efb1a079b0d44dd9da1d7f7a754a642ef72b74a1ee9b1ee\",\r\n                \"country\": \"885036a0da3dff3c3e05bc79bf49382b12bc5098514ed57ce0875aba1aa2c40d\",\r\n                \r\n                \"external_id\": \"007\"\r\n            },\r\n\r\n            \"custom_data\": {\r\n                \"currency\": \"brl\",\r\n                \"value\": 100.00,\r\n                \"contents\": [{\r\n                    \"id\": \"product4\",\r\n                    \"quantity\": 10\r\n                }],\r\n                \"order_id\": \"13581\",\r\n                \"item_number\": \"2\"\r\n            }\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{dataset id}}/events",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{dataset id}}",
+								"events"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "cross-origin"
+						},
+						{
+							"key": "x-app-usage",
+							"value": "{\"call_count\":0,\"total_cputime\":0,\"total_time\":0}"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v16.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "private, no-cache, no-store, must-revalidate"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "AZabR_xjJS3quV0nrHLP87z"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "DxLszGzlTr6"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1012447370"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "EBJpuIFa26gCvTsERVoqQB3AfgajUWZ4hvjDMobDrI6u4BrIu/95euPiBfm9a1/y60NqgFdzJFz71b1yF+ZCMw=="
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 01 Apr 2024 19:56:39 GMT"
+						},
+						{
+							"key": "X-FB-Connection-Quality",
+							"value": "EXCELLENT; q=0.9, rtt=13, rtx=0, c=10, mss=1392, tbw=372, tp=-1, tpl=-1, uplat=1223, ullat=0"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=86400"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "74"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"events_received\": 4,\n    \"messages\": [],\n    \"fbtrace_id\": \"AZabR_xjJS3quV0nrHLP87z\"\n}"
+				}
+			]
+		},
+		{
+			"name": "3) posting a 'qualifying' custom event - back-end system",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{capi access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"BecamePlatinumMember\",\r\n            \"event_time\": {{unix date}},\r\n\r\n            \"action_source\": \"physical_store\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ],\r\n\r\n                \"fn\": \"6915771be1c5aa0c886870b6951b03d7eafc121fea0e80a5ea83beb7c449f4ec\",\r\n                \"ln\": \"df2c1912d400356ed9992994130ef9f49bd2726880e04c0ede4d5c90a618f696\",\r\n                \"db\": \"01acdbf6ec7b4f478a225f1a246e5d6767eeab1a7ffa17f025265b5b94f40f0c\",\r\n\r\n                \"ct\": \"a188a64fb6b392833db7697673b3cc5df6d8409935e71588a3591218e0fd5e61\",\r\n                \"zip\": \"01c95cd051547f6d3efb1a079b0d44dd9da1d7f7a754a642ef72b74a1ee9b1ee\",\r\n                \"country\": \"885036a0da3dff3c3e05bc79bf49382b12bc5098514ed57ce0875aba1aa2c40d\",\r\n                \r\n                \"external_id\": \"007\"\r\n            }\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{dataset id}}/events",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{dataset id}}",
+						"events"
+					]
+				},
+				"description": "# Sending Offline Events Using the Conversions API\n\nThe Conversions API (**CAPI**) is Meta’s recommended integration method for sending offline and physical store events to Meta for use in ad measurement, attribution, and targeting.\n\nRef.: [https://developers.facebook.com/docs/marketing-api/conversions-api/offline-events](https://developers.facebook.com/docs/marketing-api/conversions-api/offline-events)\n\n# Customer Information Parameters\n\nRef.: [https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/customer-information-parameters](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/customer-information-parameters)\n\n# Standard Parameters\n\nThis table lists all standard parameters users can send to Meta.\n\nRef.: [https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/custom-data](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/custom-data)"
+			},
+			"response": [
+				{
+					"name": "[200] Ok - event received",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"BecamePlatinumTierMember\",\r\n            \"event_time\": {{unix date}},\r\n\r\n            \"action_source\": \"physical_store\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ],\r\n\r\n                \"fn\": \"6915771be1c5aa0c886870b6951b03d7eafc121fea0e80a5ea83beb7c449f4ec\",\r\n                \"ln\": \"df2c1912d400356ed9992994130ef9f49bd2726880e04c0ede4d5c90a618f696\",\r\n                \"db\": \"01acdbf6ec7b4f478a225f1a246e5d6767eeab1a7ffa17f025265b5b94f40f0c\",\r\n\r\n                \"ct\": \"a188a64fb6b392833db7697673b3cc5df6d8409935e71588a3591218e0fd5e61\",\r\n                \"zip\": \"01c95cd051547f6d3efb1a079b0d44dd9da1d7f7a754a642ef72b74a1ee9b1ee\",\r\n                \"country\": \"885036a0da3dff3c3e05bc79bf49382b12bc5098514ed57ce0875aba1aa2c40d\",\r\n                \r\n                \"external_id\": \"007\"\r\n            }\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{dataset id}}/events",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{dataset id}}",
+								"events"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "cross-origin"
+						},
+						{
+							"key": "x-app-usage",
+							"value": "{\"call_count\":0,\"total_cputime\":0,\"total_time\":0}"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v16.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "private, no-cache, no-store, must-revalidate"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "Ai5cKXm_K3Oh9u_AVkHtagx"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "DpMAZubTDeh"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1011742130"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "agxd+Pw9MQZC0HfG9NwHUNwgZBhUv9Ollr9EZj4S39eZpdp3yMFnPZpfXSEcnb0CuZ6KOHA3xvVoClDvmB84Eg=="
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 29 Feb 2024 13:03:51 GMT"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=86400"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "74"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"events_received\": 1,\n    \"messages\": [],\n    \"fbtrace_id\": \"Ai5cKXm_K3Oh9u_AVkHtagx\"\n}"
+				}
+			]
+		},
+		{
+			"name": "3) posting a 'new buyer' custom event - back-end system",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{capi access token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"NewBuyer\",\r\n            \"event_time\": {{unix date}},\r\n\r\n            \"action_source\": \"physical_store\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ],\r\n\r\n                \"fn\": \"6915771be1c5aa0c886870b6951b03d7eafc121fea0e80a5ea83beb7c449f4ec\",\r\n                \"ln\": \"df2c1912d400356ed9992994130ef9f49bd2726880e04c0ede4d5c90a618f696\",\r\n                \"db\": \"01acdbf6ec7b4f478a225f1a246e5d6767eeab1a7ffa17f025265b5b94f40f0c\",\r\n\r\n                \"ct\": \"a188a64fb6b392833db7697673b3cc5df6d8409935e71588a3591218e0fd5e61\",\r\n                \"zip\": \"01c95cd051547f6d3efb1a079b0d44dd9da1d7f7a754a642ef72b74a1ee9b1ee\",\r\n                \"country\": \"885036a0da3dff3c3e05bc79bf49382b12bc5098514ed57ce0875aba1aa2c40d\",\r\n                \r\n                \"external_id\": \"007\"\r\n            }\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://graph.facebook.com/v{{api version}}/{{dataset id}}/events",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"v{{api version}}",
+						"{{dataset id}}",
+						"events"
+					]
+				},
+				"description": "# Sending Offline Events Using the Conversions API\n\nThe Conversions API (**CAPI**) is Meta’s recommended integration method for sending offline and physical store events to Meta for use in ad measurement, attribution, and targeting.\n\nRef.: [https://developers.facebook.com/docs/marketing-api/conversions-api/offline-events](https://developers.facebook.com/docs/marketing-api/conversions-api/offline-events)\n\n# Customer Information Parameters\n\nRef.: [https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/customer-information-parameters](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/customer-information-parameters)\n\n# Standard Parameters\n\nThis table lists all standard parameters users can send to Meta.\n\nRef.: [https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/custom-data](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/custom-data)"
+			},
+			"response": [
+				{
+					"name": "[200] - Ok - event received",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": [\r\n        {\r\n            \"event_name\": \"NewBuyer\",\r\n            \"event_time\": {{unix date}},\r\n\r\n            \"action_source\": \"physical_store\",\r\n\r\n            \"user_data\": {\r\n                \"em\": [\r\n                    \"{{hashed user email}}\"\r\n                ],\r\n                \"ph\": [\r\n                    \"{{hashed user phone}}\"\r\n                ],\r\n\r\n                \"fn\": \"6915771be1c5aa0c886870b6951b03d7eafc121fea0e80a5ea83beb7c449f4ec\",\r\n                \"ln\": \"df2c1912d400356ed9992994130ef9f49bd2726880e04c0ede4d5c90a618f696\",\r\n                \"db\": \"01acdbf6ec7b4f478a225f1a246e5d6767eeab1a7ffa17f025265b5b94f40f0c\",\r\n\r\n                \"ct\": \"a188a64fb6b392833db7697673b3cc5df6d8409935e71588a3591218e0fd5e61\",\r\n                \"zip\": \"01c95cd051547f6d3efb1a079b0d44dd9da1d7f7a754a642ef72b74a1ee9b1ee\",\r\n                \"country\": \"885036a0da3dff3c3e05bc79bf49382b12bc5098514ed57ce0875aba1aa2c40d\",\r\n                \r\n                \"external_id\": \"007\"\r\n            }\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://graph.facebook.com/v{{api version}}/{{dataset id}}/events",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"facebook",
+								"com"
+							],
+							"path": [
+								"v{{api version}}",
+								"{{dataset id}}",
+								"events"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "cross-origin"
+						},
+						{
+							"key": "x-app-usage",
+							"value": "{\"call_count\":0,\"total_cputime\":0,\"total_time\":0}"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "facebook-api-version",
+							"value": "v16.0"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15552000; preload"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "private, no-cache, no-store, must-revalidate"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 01 Jan 2000 00:00:00 GMT"
+						},
+						{
+							"key": "x-fb-request-id",
+							"value": "AEFJQjAXlBHgLCAw3gEaXQX"
+						},
+						{
+							"key": "x-fb-trace-id",
+							"value": "Dg7AzPQIojg"
+						},
+						{
+							"key": "x-fb-rev",
+							"value": "1011746498"
+						},
+						{
+							"key": "X-FB-Debug",
+							"value": "j2rl2qaA4nISbV5Ww6A4UTv+zeZTEBX4uPJPrRqoOM6KpLChl86Uj5uIUZQJ3d3cLo8ombDhs0iXdSrMhmiB5w=="
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 29 Feb 2024 17:16:22 GMT"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=86400"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "74"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"events_received\": 1,\n    \"messages\": [],\n    \"fbtrace_id\": \"AEFJQjAXlBHgLCAw3gEaXQX\"\n}"
+				}
+			]
+		}
+	]
+}

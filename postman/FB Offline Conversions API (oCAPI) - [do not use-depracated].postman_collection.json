@@ -1,8 +1,9 @@
 {
 	"info": {
 		"_postman_id": "ba2bcf7b-52bf-4410-b7f8-6ced9b800fd0",
-		"name": "FB Offline Conversions API (oCAPI)",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"name": "FB Offline Conversions API (oCAPI) - [do not use|depracated]",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1848890"
 	},
 	"item": [
 		{
@@ -580,7 +581,7 @@
 			]
 		},
 		{
-			"name": "2) Upload Offline Events",
+			"name": "2) Upload Offline Events [do not use | deprecated]",
 			"request": {
 				"auth": {
 					"type": "bearer",
