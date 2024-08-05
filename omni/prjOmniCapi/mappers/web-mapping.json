@@ -1,0 +1,22 @@
+{
+    "EVENT_NAME": 0,
+    "EVENT_TIME": 1,
+    "EVENT_ID": 2,
+    "EVENT_SOURCE_URL": 3,
+    "ACTION_SOURCE": 4,
+
+    "EXTERNAL_ID": 6,
+    "EMAIL": 7,
+    "PHONE": 8,
+    "CLIENT_IP_ADDRESS": 9,
+    "CLIENT_USER_AGENT": 10,
+    "FBC": 11,
+    "FBP": 12,
+    
+    "ORDER_ID": 14,
+    "CURRENCY": 15,
+    "VALUE": 16,
+    "CONTENT_ID": 17,
+    "CONTENT_QUANTITY": 18,
+    "CONTENT_DELIVERY": 19
+  }

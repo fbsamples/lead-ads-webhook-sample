@@ -1,0 +1,177 @@
+>> Main() 
+>> ProcessFile() ./bucket\store-signals-07082024.csv
+>> Check() we're reading the file ./bucket\store-signals-07082024.csv and then calling Graph API v20.0 for the Pixel 123123 at https://graph.facebook.com/v20.0/123123/events.
+>> ReadFile()
+>> PrepareBody() {
+  "data": [
+    {
+      "event_name": "Purchase",
+      "event_time": 1719852447,
+      "action_source": "physical_store",
+      "user_data": {
+        "em": [
+          "7b17fb0bd173f625b58636fb796407c22b3d16fc78302d79f0fd30c2fc2fc068"     
+        ],
+        "ph": [
+          "254aa248acb47dd654ca3ea53f48c2c26d641d23d7e2e93a1ec56258df7674c4"     
+        ],
+        "fn": "6915771be1c5aa0c886870b6951b03d7eafc121fea0e80a5ea83beb7c449f4ec",
+        "ln": "df2c1912d400356ed9992994130ef9f49bd2726880e04c0ede4d5c90a618f696",
+        "db": "01acdbf6ec7b4f478a225f1a246e5d6767eeab1a7ffa17f025265b5b94f40f0c",
+        "ct": "a188a64fb6b392833db7697673b3cc5df6d8409935e71588a3591218e0fd5e61",
+        "zip": "01c95cd051547f6d3efb1a079b0d44dd9da1d7f7a754a642ef72b74a1ee9b1ee",
+        "country": "885036a0da3dff3c3e05bc79bf49382b12bc5098514ed57ce0875aba1aa2c40d",
+        "external_id": [
+          "629f4cf9337b0d0c76f305d860f98894cfa8c279516b425747514ca8710deb97"
+        ]
+      },
+      "custom_data": {
+        "currency": "brl",
+        "value": 220.0,
+        "contents": [
+          {
+            "id": "product123",
+            "quantity": 1
+          }
+        ],
+        "order_id": "ATN10001"
+      }
+    }
+  ]
+}
+>> SendToMeta() 
+---
+Response (from Meta): OK - {"events_received":1,"messages":[],"fbtrace_id":"Af49DsK_QMmv7_AMk2D04iX"}
+---
+>> PrepareBody() {
+  "data": [
+    {
+      "event_name": "Purchase",
+      "event_time": 1719452447,
+      "action_source": "physical_store",
+      "user_data": {
+        "em": [
+          "7b17fb0bd173f625b58636fb796407c22b3d16fc78302d79f0fd30c2fc2fc068"
+        ],
+        "ph": [
+          "254aa248acb47dd654ca3ea53f48c2c26d641d23d7e2e93a1ec56258df7674c4"
+        ],
+        "fn": "6915771be1c5aa0c886870b6951b03d7eafc121fea0e80a5ea83beb7c449f4ec",
+        "ln": "df2c1912d400356ed9992994130ef9f49bd2726880e04c0ede4d5c90a618f696",
+        "db": "01acdbf6ec7b4f478a225f1a246e5d6767eeab1a7ffa17f025265b5b94f40f0c",
+        "ct": "a188a64fb6b392833db7697673b3cc5df6d8409935e71588a3591218e0fd5e61",
+        "zip": "01c95cd051547f6d3efb1a079b0d44dd9da1d7f7a754a642ef72b74a1ee9b1ee",
+        "country": "885036a0da3dff3c3e05bc79bf49382b12bc5098514ed57ce0875aba1aa2c40d",
+        "external_id": [
+          "629f4cf9337b0d0c76f305d860f98894cfa8c279516b425747514ca8710deb97"
+        ]
+      },
+      "custom_data": {
+        "currency": "brl",
+        "value": 360.39,
+        "contents": [
+          {
+            "id": "product200",
+            "quantity": 3
+          }
+        ],
+        "order_id": "ATN10002"
+      }
+    }
+  ]
+}
+>> SendToMeta()
+---
+Response (from Meta): OK - {"events_received":1,"messages":[],"fbtrace_id":"Awd52LDNuaYmnKa52vsbq-z"}
+---
+
+Total lines: 2
+>> ProcessFile() ./bucket\web-signals-07232024.csv
+>> Check() we're reading the file ./bucket\web-signals-07232024.csv and then calling Graph API v20.0 for the Pixel 123123 at https://graph.facebook.com/v20.0/123123/events.
+>> ReadFile()
+>> PrepareBody() {
+  "data": [
+    {
+      "event_name": "Purchase",
+      "event_time": 1721729410,
+      "event_id": "1bfbb069-a936-4e87-86da-f38f84615c54",
+      "event_source_url": "http://jaspers-market.com/product/123",
+      "action_source": "website",
+      "user_data": {
+        "em": [
+          "7b17fb0bd173f625b58636fb796407c22b3d16fc78302d79f0fd30c2fc2fc068"
+        ],
+        "ph": [
+          "254aa248acb47dd654ca3ea53f48c2c26d641d23d7e2e93a1ec56258df7674c4"
+        ],
+        "external_id": [
+          "629f4cf9337b0d0c76f305d860f98894cfa8c279516b425747514ca8710deb97"
+        ],
+        "client_ip_address": "123.123.123.123",
+        "client_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+        "fbc": "fb.1.1554763741205.AbCdEfGhIjKlMnOpQrStUvWxYz1234567890",
+        "fbp": "fb.1.1558571054389.1098115397"
+      },
+      "custom_data": {
+        "currency": "brl",
+        "value": 220.0,
+        "contents": [
+          {
+            "id": "product123",
+            "quantity": 1,
+            "delivery_category": "home_delivery"
+          }
+        ],
+        "order_id": "ATN10003"
+      }
+    }
+  ]
+}
+>> SendToMeta()
+---
+Response (from Meta): OK - {"events_received":1,"messages":[],"fbtrace_id":"AIxK198x7-T6hxBTCrMwOHi"}
+---
+>> PrepareBody() {
+  "data": [
+    {
+      "event_name": "Purchase",
+      "event_time": 1721743810,
+      "event_id": "e5565c21-1491-46d7-843a-cd53dd629468",
+      "event_source_url": "http://jaspers-market.com/product/200",
+      "action_source": "website",
+      "user_data": {
+        "em": [
+          "7b17fb0bd173f625b58636fb796407c22b3d16fc78302d79f0fd30c2fc2fc068"
+        ],
+        "ph": [
+          "254aa248acb47dd654ca3ea53f48c2c26d641d23d7e2e93a1ec56258df7674c4"
+        ],
+        "external_id": [
+          "629f4cf9337b0d0c76f305d860f98894cfa8c279516b425747514ca8710deb97"
+        ],
+        "client_ip_address": "123.123.123.123",
+        "client_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+        "fbc": "fb.1.1554763741205.AbCdEfGhIjKlMnOpQrStUvWxYz1234567890",
+        "fbp": "fb.1.1558571054389.1098115397"
+      },
+      "custom_data": {
+        "currency": "brl",
+        "value": 360.39,
+        "contents": [
+          {
+            "id": "product200",
+            "quantity": 3,
+            "delivery_category": "home_delivery"
+          }
+        ],
+        "order_id": "ATN10004"
+      }
+    }
+  ]
+}
+>> SendToMeta() 
+---
+Response (from Meta): OK - {"events_received":1,"messages":[],"fbtrace_id":"ANRZnMxcAT2F07X2bOIseZO"}
+---
+
+Total lines: 2

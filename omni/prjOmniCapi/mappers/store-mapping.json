@@ -1,0 +1,19 @@
+{
+  "EVENT_NAME": 0,
+  "EVENT_TIME": 1,
+  "ACTION_SOURCE": 2,
+  "EXTERNAL_ID": 4,
+  "EMAIL": 5,
+  "PHONE": 6,
+  "FIRST_NAME": 7,
+  "LAST_NAME": 8,
+  "DATE_OF_BIRTH": 9,
+  "CITY": 10,
+  "ZIP": 11,
+  "COUNTRY": 12,
+  "ORDER_ID": 14,
+  "CURRENCY": 15,
+  "VALUE": 16,
+  "CONTENT_ID": 17,
+  "CONTENT_QUANTITY": 18
+}
